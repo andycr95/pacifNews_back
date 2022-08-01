@@ -12,6 +12,22 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_DATABASE: pacificNews_test
+          MYSQL_USER: pacificode
+          MYSQL_PASSWORD: pacificode
+          MYSQL_ROOT_PASSWORD: pacificode
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+    env:
+      DB_DATABASE: pacificNews_test
+      DB_USER: root
+      DB_PASSWORD: pacificode
+
     strategy:
       matrix:
         node-version: [16.x]
@@ -28,23 +44,10 @@ jobs:
         file_name: .env
         fail_on_empty: false
 
-    - name: Shutdown Ubuntu MySQL (SUDO)
-      run: sudo service mysql stop
-
-    - name: Set up MySQL
-      uses: mirromutth/mysql-action@v1.1
-      with:
-        character set server: 'utf8' 
-        collation server: 'utf8_general_ci' 
-        mysql database: 'pacificNews_test' 
-        mysql root password: 'pacificode'
-        mysql user: 'developer'
-        mysql password: 'pacificode'
-
     - name: Set up DATABASE
       run: |
         sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE pacificNews_test;' -u$ root -p pacificode
+        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u${{ env.DB_USER }} -p${{ env.DB_PASSWORD }}
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
