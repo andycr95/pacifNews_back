@@ -38,6 +38,11 @@ jobs:
         file_name: .env
         fail_on_empty: false
 
+    - name: Set up DATABASE
+      run: |
+        sudo /etc/init.d/mysql start
+        mysql -e 'CREATE DATABASE pacificNews_test;'
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
