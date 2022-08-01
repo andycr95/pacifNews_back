@@ -18,14 +18,12 @@ jobs:
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           MYSQL_DATABASE: pacificNews_test
-          MYSQL_USER: pacificode
         ports:
           - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
     env:
       DB_DATABASE: pacificNews_test
       DB_USER: pacificode
-      DB_PASSWORD: pacificode
 
     strategy:
       matrix:
@@ -46,7 +44,6 @@ jobs:
     - name: Set up DATABASE
       run: |
         sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE ${{ env.DB_DATABASE }};' -u ${{ env.DB_USER }}
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
@@ -55,5 +52,7 @@ jobs:
         cache: 'npm'
 
     - run: npm ci
+
+    - run: npx prisma migrate dev --name init
 
     - run: npm test
