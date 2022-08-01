@@ -23,9 +23,8 @@ jobs:
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1.3
       with:
-        DATABASE_URL: mysql://pacificnews_usr_ex:ESz4gu3abBEiEXue@192.241.155.75:3306/pacificNews?schema=public
-        ACCESS_TOKEN_SECRET: unipacifico
-        directory: ../../
+        envkey_DATABASE_URL: mysql://pacificnews_usr_ex:ESz4gu3abBEiEXue@192.241.155.75:3306/pacificNews?schema=public
+        envkey_ACCESS_TOKEN_SECRET: unipacifico
         file_name: .env
         fail_on_empty: false
 
