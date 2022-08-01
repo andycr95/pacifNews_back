@@ -25,12 +25,6 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - name: Configure AWS Credentials  
-      uses: aws-actions/configure-aws-credentials@v1
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
         
     - name: npm install
       run: npm ci 
@@ -41,7 +35,14 @@ jobs:
       run: mv node_modules build/node_modules
     
     - name: deploy
-      run: |
-          (cd build && zip -r ../function.zip .)
-          aws lambda update-function-code --function-name=pacificNews_back --zip-file=fileb://function.zip 
+      run: (cd build && zip -r ../function.zip .)
+    
+    - name: Deploy to AWS
+      uses: appleboy/lambda-action@master
+      with:
+        aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws_region: us-east-1
+        function_name: pacificNews_back
+        zip_file: function.zip
 
