@@ -25,7 +25,7 @@ jobs:
       with:
         DATABASE_URL: mysql://pacificnews_usr_ex:ESz4gu3abBEiEXue@192.241.155.75:3306/pacificNews?schema=public
         ACCESS_TOKEN_SECRET: unipacifico
-        directory: ./
+        directory: ../../
         file_name: .env
         fail_on_empty: false
 
