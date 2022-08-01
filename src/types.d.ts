@@ -1,5 +1,5 @@
 export interface User {
-  id: number;
+  id: number
   name: string
   email: string
   password: string
@@ -7,15 +7,15 @@ export interface User {
 }
 
 export interface IEnv {
-  port: number;
-  db:{
-      name: string;
-      user: string;
-      pw: string;
-      account: string;
-  };
-  apiPath: string;
-  staticPath: string;
+  port: number
+  db: {
+    name: string
+    user: string
+    pw: string
+    account: string
+  }
+  apiPath: string
+  staticPath: string
 }
 
 export type NewUserEntry = Omit<User, 'id'>

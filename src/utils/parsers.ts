@@ -25,8 +25,8 @@ const isMajor = (data: string, length: number): boolean => {
 }
 
 const isEmail = (email: string): boolean => {
-  var emailFormat=/^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
-  return emailFormat.test(email);
+  const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
+  return emailFormat.test(email)
 }
 
 const parseEmail = (emailFromRequest: any): string => {
