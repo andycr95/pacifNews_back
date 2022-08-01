@@ -33,7 +33,7 @@ jobs:
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1.3
       with:
-        envkey_DATABASE_URL: mysql://root@127.0.0.1:3306/pacificNews_test?schema=public
+        envkey_DATABASE_URL: mysql://root@127.0.0.1:33306/pacificNews_test?schema=public
         envkey_ACCESS_TOKEN_SECRET: unipacifico
         file_name: .env
         fail_on_empty: false
@@ -49,6 +49,6 @@ jobs:
 
     - run: npm ci
 
-    - run: npx prisma migrate dev --name init
+    - run: npx prisma migrate dev
 
     - run: npm test
