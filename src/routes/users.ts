@@ -1,28 +1,50 @@
 import express from 'express'
-import UserModel from '../models/user'
+import userController from '../controllers/userController';
+import toNewUserEntry, { toLoginUserEntry } from '../utils/parsers';
 
 const router = express.Router()
 
 router.get('/', async (_req, res) => {
-  const users = UserModel.find()
-  res.json(users)
+  const users = await userController.getUser();
+  return (users != null)
+    ? res.send(users)
+    : res.status(404)
 })
 
-// router.get('/:id', (req, res) => {
-//   const dairy = userService.findById(+req.params.id)
-//   return (dairy != null)
-//     ? res.send(dairy)
-//     : res.sendStatus(404)
-// })
+router.post('/', async (req, res) => {
+  try {
+    const newUserEntry = toNewUserEntry(req.body);
+    const addedUserEntry = await userController.addUser(newUserEntry);
+    res.status(201).json(addedUserEntry);
+  } catch (error: any) {
+    res.status(400).json({
+      error: error.message,
+      code: error.code
+    });
+  }
+})
 
-// router.post('/', (req, res) => {
-//   try {
-//     const newDairyEntry = toNewDairyEntry(req.body)
-//     const addedDairyEntry = userService.addDairy(newDairyEntry)
-//     res.json(addedDairyEntry)
-//   } catch (err: any) {
-//     res.status(400).send(err.message)
-//   }
-// })
+router.get('/me', async (req, res) => {
+  const token = req.headers.authorization
+  const payload = await userController.isLoggedIn(token)
+  if (payload.hasError) {
+    res.status(401).json(payload)
+  } else {
+    res.status(200).json(payload)
+  }
+})
+
+router.post('/login', async (req, res) => {
+  try {
+    const loginUserEntry = toLoginUserEntry(req.body);
+    const user = await userController.login(loginUserEntry.email, loginUserEntry.password);
+    res.status(200).json(user)
+  } catch (error: any) {
+    res.status(400).json({
+      error: error.message,
+      code: error.code
+    });
+  }
+})
 
 export default router

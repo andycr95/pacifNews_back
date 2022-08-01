@@ -1,8 +1,22 @@
 export interface User {
-  name: String
-  email: String
-  password: String
-  phoneNumber: String
+  id: number;
+  name: string
+  email: string
+  password: string
+  phoneNumber: string
 }
 
-export type NewDairyEntry = Omit<DairyEntry, 'id'>
+export interface IEnv {
+  port: number;
+  db:{
+      name: string;
+      user: string;
+      pw: string;
+      account: string;
+  };
+  apiPath: string;
+  staticPath: string;
+}
+
+export type NewUserEntry = Omit<User, 'id'>
+export type LoginUserEntry = Omit<User, 'id' | 'name' | 'phoneNumber'>
