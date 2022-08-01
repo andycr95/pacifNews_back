@@ -1,7 +1,7 @@
 # This workflow will do a clean installation of node dependencies, cache/restore them, build the source code and run tests across different versions of node
 # For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
 
-name: Node.js CI
+name: "Realizando test a develop"
 
 on:
   push:
@@ -10,19 +10,45 @@ on:
 jobs:
   build:
 
+    services:
+      mysql:
+        image: mysql:5.7
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          MYSQL_DATABASE: pacificNews_test
+        ports:
+          - 33306:3306
+        options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
+
     runs-on: ubuntu-latest
 
     strategy:
       matrix:
-        node-version: [12.x, 14.x, 16.x]
-        # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
+        node-version: [16.x]
 
     steps:
+
     - uses: actions/checkout@v3
+
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1.3
+      with:
+        envkey_DATABASE_URL: mysql://root@127.0.0.1:33306/pacificNews_test?schema=public
+        envkey_ACCESS_TOKEN_SECRET: unipacifico
+        file_name: .env
+        fail_on_empty: false
+
+    - name: Set up DATABASE
+      run: mysql -h 127.0.0.1 --port 33306 -u root -e 'CREATE DATABASE IF NOT EXISTS pacificNews_test;'
+
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+
     - run: npm ci
+
+    - run: npx prisma migrate dev
+
     - run: npm test

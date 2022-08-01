@@ -30,7 +30,7 @@ test("Iniciar sesion con un usuario", async () => {
 
 //Test para el metodo updateUser
 test("Actualizar un usuario en base de datos", async () => {
-    const id = 6;
+    const id = 1;
     const newUserEntry = {
         name: "Test Update",
         password: "Test",
@@ -43,14 +43,14 @@ test("Actualizar un usuario en base de datos", async () => {
 
 //Test para el metodo getUserById
 test("Obtener un usuario en base de datos", async () => {
-    const id = 6;
+    const id = 1;
     const user = await userController.getUserById(id);
     expect(user).toBeDefined();
 });
 
 //Test para el metodo deleteUser
 test("Eliminar un usuario en base de datos", async () => {
-    const id = 6;
+    const id = 1;
     const deletedUserEntry = await userController.deleteUser(id);
     expect(deletedUserEntry).toBeDefined();
 });
