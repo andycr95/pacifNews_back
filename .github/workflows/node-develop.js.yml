@@ -23,10 +23,23 @@ jobs:
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1.3
       with:
-        envkey_DATABASE_URL: mysql://pacificnews_usr_ex:ESz4gu3abBEiEXue@192.241.155.75:3306/pacificNews?schema=public
+        envkey_DATABASE_URL: mysql://developer:pacificode@192.241.155.75:3306/pacificNews_test?schema=public
         envkey_ACCESS_TOKEN_SECRET: unipacifico
         file_name: .env
         fail_on_empty: false
+
+    - name: Shutdown Ubuntu MySQL (SUDO)
+      run: sudo service mysql stop
+
+    - name: Set up MySQL
+      uses: mirromutth/mysql-action@v1.1
+      with:
+        character set server: 'utf8' 
+        collation server: 'utf8_general_ci' 
+        mysql database: 'pacificNews_test' 
+        mysql root password: 'pacificode'
+        mysql user: 'developer'
+        mysql password: 'pacificode'
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
