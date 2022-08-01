@@ -10,8 +10,6 @@ on:
 jobs:
   build:
 
-    runs-on: ubuntu-latest
-
     services:
       mysql:
         image: mysql:5.7
@@ -22,10 +20,12 @@ jobs:
           - 33306:3306
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
+    runs-on: ubuntu-latest
+
     strategy:
       matrix:
         node-version: [16.x]
-    
+
     steps:
 
     - uses: actions/checkout@v3
@@ -39,9 +39,7 @@ jobs:
         fail_on_empty: false
 
     - name: Set up DATABASE
-      run: |
-        sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE pacificNews_test;' -u root
+      run: mysql -h 127.0.0.1 --port 33306 -u root -e 'CREATE DATABASE IF NOT EXISTS pacificNews_test;'
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
