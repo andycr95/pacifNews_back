@@ -39,7 +39,6 @@ jobs:
     
     - name: deploy
       run: |
-          ls build/*
-          zip -r deploy.zip build/*
+          zip -r deploy.zip ./*
           aws lambda update-function-code --function-name=pacificNews_back --zip-file=fileb://deploy.zip 
 
