@@ -36,6 +36,9 @@ jobs:
       run: npm ci 
 
     - run: npm run build --if-present
+
+    - name: Move node_modules to build
+      run: mv node_modules build/node_modules
     
     - name: deploy
       run: |
