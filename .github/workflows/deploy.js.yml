@@ -38,7 +38,5 @@ jobs:
     - run: npm run build --if-present
     
     - name: deploy
-      run: |
-          zip -j deploy.zip
-          aws lambda update-function-code --function-name=pacificNews_back --zip-file=fileb://deploy.zip 
+      run: ls
 
