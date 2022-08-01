@@ -5,6 +5,10 @@ import bcrypt from 'bcryptjs'
 const prisma = new PrismaClient();
 
 export default class UserController {
+
+  constructor() {}
+
+  
   //Listar todos los usuarios
   static async getUser() {
     try {
@@ -101,6 +105,5 @@ export default class UserController {
     }
   }
 
-  constructor() {}
 }
 
