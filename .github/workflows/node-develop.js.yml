@@ -23,7 +23,7 @@ jobs:
     - name: Make envfile
       uses: SpicyPizza/create-envfile@v1.3
       with:
-        envkey_DATABASE_URL: mysql://developer:pacificode@127.0.0.1:3306/pacificNews_test?schema=public
+        envkey_DATABASE_URL: mysql://root:pacificode@127.0.0.1:3306/pacificNews_test?schema=public
         envkey_ACCESS_TOKEN_SECRET: unipacifico
         file_name: .env
         fail_on_empty: false
@@ -40,6 +40,11 @@ jobs:
         mysql root password: 'pacificode'
         mysql user: 'developer'
         mysql password: 'pacificode'
+
+    - name: Set up DATABASE
+      run: |
+        sudo /etc/init.d/mysql start
+        mysql -e 'CREATE DATABASE pacificNews_test;' -u$ root -p pacificode
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
