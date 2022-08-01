@@ -41,7 +41,7 @@ jobs:
     - name: Set up DATABASE
       run: |
         sudo /etc/init.d/mysql start
-        mysql -e 'CREATE DATABASE pacificNews_test;'
+        mysql -e 'CREATE DATABASE pacificNews_test;' -u root
 
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
