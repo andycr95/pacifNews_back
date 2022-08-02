@@ -18,9 +18,6 @@ jobs:
       matrix:
         node-version: [16.x]
 
-    env:
-      NODE_ENV: production
-
     steps:
     - uses: actions/checkout@v3
     - name: Use Node.js ${{ matrix.node-version }}
