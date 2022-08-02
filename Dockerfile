@@ -1,6 +1,8 @@
-FROM node:lts-alpine
+FROM node:16-alpine
 WORKDIR /app
 COPY ["package.json", "package-lock.json*", "npm-shrinkwrap.json*", "./"]
+RUN npm install -g typescript
+RUN npm install -g ts-node
 RUN npm install
 RUN npm run build
 COPY ["./build/*", "./build/.[!.]*"] /app
