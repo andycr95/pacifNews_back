@@ -27,12 +27,23 @@ jobs:
         cache: 'npm'
         
     - name: npm install
-      run: npm ci 
+      run: npm ci --omit=dev
+
 
     - run: npm run build --if-present
 
+    - name: Make envfile
+      uses: SpicyPizza/create-envfile@v1.3
+      with:
+        envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        envkey_ACCESS_TOKEN_SECRET: unipacifico
+        file_name: ./build/.env
+        fail_on_empty: false
+
     - name: Move node_modules to build
-      run: mv node_modules build/node_modules
+      run: |
+        mv node_modules build/node_modules
+        mv package.json build/package.json
     
     - name: deploy
       run: (cd build && zip -r ../function.zip .)
