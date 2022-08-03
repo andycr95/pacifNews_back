@@ -14,7 +14,6 @@ RUN ls -a
 RUN npm install --only=production
 COPY --from=0 /usr/app/build .
 COPY --from=0 /usr/app/prisma ./prisma
-COPY .env ./.env
 RUN npx prisma generate
 RUN npm install pm2 -g
 RUN ls -a
