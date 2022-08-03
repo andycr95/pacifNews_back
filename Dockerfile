@@ -14,10 +14,6 @@ FROM node:lts-alpine
 WORKDIR /usr
 COPY package.json ./
 COPY prisma ./
+RUN touch ./.env
 COPY aws-task-definition.json ./task-definition.json
-COPY .env ./
-RUN npm install --only=production
-COPY --from=0 /usr/build .
-RUN npm install pm2 -g
-EXPOSE 5000
-CMD ["pm2-runtime","index.js"]
+RUN ls -a
