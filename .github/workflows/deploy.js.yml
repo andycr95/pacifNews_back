@@ -53,7 +53,7 @@ jobs:
       with:
         envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
         envkey_ACCESS_TOKEN_SECRET: unipacifico
-        file_name: ./build/.env
+        file_name: ./.env
         fail_on_empty: false
 
     - name: Login to Amazon ECR
