@@ -11,6 +11,8 @@ RUN npm run build
 FROM node:lts-alpine
 WORKDIR /usr
 COPY package.json ./
+COPY tsconfig.json ./
+COPY task-definition.json ./
 RUN npm install --only=production
 COPY --from=0 /usr/build .
 RUN npm install pm2 -g
