@@ -2,6 +2,7 @@ FROM node:lts-alpine
 WORKDIR /usr
 COPY package.json ./
 COPY tsconfig.json ./
+COPY taks-definition.json ./
 COPY src ./src
 RUN ls -a
 RUN npm install
@@ -11,8 +12,7 @@ RUN npm run build
 FROM node:lts-alpine
 WORKDIR /usr
 COPY package.json ./
-COPY tsconfig.json ./
-COPY task-definition.json ./
+COPY taks-definition.json ./
 RUN npm install --only=production
 COPY --from=0 /usr/build .
 RUN npm install pm2 -g
