@@ -2,7 +2,7 @@ FROM node:lts-alpine
 WORKDIR /usr
 COPY package.json ./
 COPY tsconfig.json ./
-COPY taks-definition.json ./
+COPY aws-task-definition.json ./task-definition.json
 COPY src ./src
 RUN ls -a
 RUN npm install
