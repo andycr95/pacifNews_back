@@ -7,13 +7,8 @@ const prisma = new PrismaClient()
 export default class UserController {
   // Listar todos los usuarios
   public static async getUser (): Promise<any> {
-    try {
-      const users = await prisma.user.findMany()
-      return users
-    } catch (error) {
-      console.log(error)
-      return error
-    }
+    const users = await prisma.user.findMany()
+    return users
   }
 
   // Metodo para obtener un usuario
@@ -25,59 +20,44 @@ export default class UserController {
 
   // Agregar un usuario
   public static async addUser (newDairyEntry: NewUserEntry): Promise<User | unknown> {
-    try {
-      const email = await prisma.user.findMany({ where: { email: newDairyEntry.email } })
-      if (email.length > 0) return { error: 'Este correo electronico se encuentra en uso', hasError: true }
-      const user = newDairyEntry
-      const salt = await bcrypt.genSalt(10)
-      user.password = await bcrypt.hash(user.password, salt)
-      const addedDairyEntry = await prisma.user.create({
-        data: {
-          name: user.name,
-          password: user.password,
-          email: user.email,
-          phoneNumber: user.phoneNumber
-        }
-      })
-      return addedDairyEntry
-    } catch (error) {
-      console.log(error)
-      return error
-    }
+    const email = await prisma.user.findMany({ where: { email: newDairyEntry.email } })
+    if (email.length > 0) return { error: 'Este correo electronico se encuentra en uso', hasError: true }
+    const user = newDairyEntry
+    const salt = await bcrypt.genSalt(10)
+    user.password = await bcrypt.hash(user.password, salt)
+    const addedDairyEntry = await prisma.user.create({
+      data: {
+        name: user.name,
+        password: user.password,
+        email: user.email,
+        phoneNumber: user.phoneNumber
+      }
+    })
+    return addedDairyEntry
   }
 
   // Actualizar un usuario
   public static async updateUser (id: number, newDairyEntry: NewUserEntry): Promise<User | unknown> {
-    try {
-      const user = await prisma.user.findUnique({ where: { id } })
-      if (user == null) throw new Error('Usuario no encontrado')
-      const updatedDairyEntry = await prisma.user.update({
-        where: { id },
-        data: {
-          name: newDairyEntry.name,
-          password: newDairyEntry.password,
-          email: newDairyEntry.email,
-          phoneNumber: newDairyEntry.phoneNumber
-        }
-      })
-      return updatedDairyEntry
-    } catch (error) {
-      console.log(error)
-      return error
-    }
+    const user = await prisma.user.findUnique({ where: { id } })
+    if (user == null) throw new Error('Usuario no encontrado')
+    const updatedDairyEntry = await prisma.user.update({
+      where: { id },
+      data: {
+        name: newDairyEntry.name,
+        password: newDairyEntry.password,
+        email: newDairyEntry.email,
+        phoneNumber: newDairyEntry.phoneNumber
+      }
+    })
+    return updatedDairyEntry
   }
 
   // Eliminar un usuario
   public static async deleteUser (id: number): Promise<any> {
-    try {
-      const user = await prisma.user.findUnique({ where: { id } })
-      if (user == null) throw new Error('Usuario no encontrado')
-      const deletedDairyEntry = await prisma.user.delete({ where: { id } })
-      return deletedDairyEntry
-    } catch (error) {
-      console.log(error)
-      return error
-    }
+    const user = await prisma.user.findUnique({ where: { id } })
+    if (user == null) throw new Error('Usuario no encontrado')
+    const deletedDairyEntry = await prisma.user.delete({ where: { id } })
+    return deletedDairyEntry
   }
 
   // Inicio de sesion
@@ -92,12 +72,12 @@ export default class UserController {
 
   // Verificar si un usuario esta logueado
   public static async isLoggedIn (token: string | undefined): Promise<any> {
-    if (!token) return { error: 'No token provided', hasError: true }
+    if (!token) throw new Error('Usuario no autenticado');
     try {
       const payload = await jwt.verifyAccessToken(token)
       return { user: payload, token, hasError: false }
     } catch (error) {
-      return { error: 'Unauthorized', hasError: true }
+      throw new Error('Usuario no autenticado');
     }
   }
 }
