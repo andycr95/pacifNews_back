@@ -10,14 +10,8 @@ on:
     branches: [ "main" ]
 
 env:
-  AWS_REGION: us-east-1
-  ECR_REPOSITORY: pacificnews_back
-  ECS_SERVICE: pacificNews-back-service
-  ECS_CLUSTER: pacificNews-back        
-  ECS_TASK_DEFINITION: task-definition.json
-  CONTAINER_NAME: pacificNews_back
-  AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-  AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+  ACCESS_TOKEN_SECRET: unipacifico
+  DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 permissions:
   contents: read
@@ -50,6 +44,9 @@ jobs:
         heroku_api_key: ${{ secrets.HEROKU_API_KEY }}
         heroku_app_name: ${{ secrets.HEROKU_APP_NAME }}
         usedocker: true
+        docker_build_args: |
+            DATABASE_URL
+            ACCESS_TOKEN_SECRET
 
 
 
