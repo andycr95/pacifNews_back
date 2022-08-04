@@ -11,6 +11,10 @@ const jswt = {
     return await new Promise((resolve, reject) => {
       jwt.sign({ payload }, accessTokenSecret, {
       }, (err: any, token: any) => {
+        console.log(token);
+        console.log(err);
+        
+        
         if (err) {
           reject(new createError.InternalServerError())
         } else {
