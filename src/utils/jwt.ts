@@ -11,7 +11,7 @@ const jswt = {
     return await new Promise((resolve, reject) => {
       jwt.sign({ payload }, accessTokenSecret, {
       }, (err: any, token: any) => {
-        console.log(token);
+        console.log(accessTokenSecret);
         console.log(err);
         
         
