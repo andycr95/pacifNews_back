@@ -12,6 +12,7 @@ router.get('/', async (req, res) => {
     const users = await userController.getUser()
     res.status(200).json(users)
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({error: error.message})
   }
 })
@@ -25,6 +26,7 @@ router.post('/', async (req, res) => {
     const addedUserEntry = await userController.addUser(newUserEntry)
     res.status(201).json(addedUserEntry)
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({error: error.message})
   }
 })
@@ -39,6 +41,7 @@ router.put('/:id', async (req, res) => {
     const updatedUserEntry = await userController.updateUser(id, newUserEntry)
     res.json(updatedUserEntry)
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({error: error.message})
   }
 })
@@ -52,6 +55,7 @@ router.delete('/:id', async (req, res) => {
     const deletedUserEntry = await userController.deleteUser(id)
     res.json(deletedUserEntry)
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({error: error.message})
   }
 })
@@ -63,6 +67,7 @@ router.get('/me', async (req, res) => {
     const payload = await userController.isLoggedIn(token)
     res.status(200).json(payload) 
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({error: error.message})
   }
 })
@@ -74,6 +79,7 @@ router.post('/login', async (req, res) => {
     const user = await userController.login(loginUserEntry.email, loginUserEntry.password)
     res.status(200).json(user)
   } catch (error: any) {
+    console.log(error);
     res.status(400).json({error: error.message})
   }
 })
