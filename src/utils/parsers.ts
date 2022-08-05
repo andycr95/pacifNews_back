@@ -57,8 +57,8 @@ const toNewUserEntry = (entry: any): NewUserEntry => {
 
 export const toLoginUserEntry = (entry: any): LoginUserEntry => {
   const loginEntry: LoginUserEntry = {
-    password: parsePassword(entry.password),
-    email: parseEmail(entry.email)
+    email: parseEmail(entry.email),
+    password: parsePassword(entry.password)
   }
   return loginEntry
 }
