@@ -13,7 +13,7 @@ const isString = (string: string): boolean => {
 }
 
 const parsePassword = (passwordFromRequest: any): string => {
-  if (!isString(passwordFromRequest) || !isMajor(passwordFromRequest, 8)) {
+  if (!isString(passwordFromRequest) || !isMajor(passwordFromRequest, 6)) {
     throw new Error('Campo contraseña invalido o vacio')
   }
 
