@@ -1,5 +1,6 @@
 import express from 'express'
 import userRouter from './routes/users'
+import articleRouter from './routes/articles'
 import helmet from 'helmet'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -15,6 +16,7 @@ app.use(cors())
 const PORT = process.env.PORT || 5000
 
 app.use('/api/users', userRouter)
+app.use('/api/articles', articleRouter)
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`)
