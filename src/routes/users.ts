@@ -76,6 +76,7 @@ router.get('/me', async (req, res) => {
 router.post('/login', async (req, res) => {
   try {
     const loginUserEntry = toLoginUserEntry(req.body)
+    console.log(loginUserEntry);
     const user = await userController.login(loginUserEntry.email, loginUserEntry.password)
     res.status(200).json(user)
   } catch (error: any) {
