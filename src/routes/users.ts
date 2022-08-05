@@ -75,8 +75,8 @@ router.get('/me', async (req, res) => {
 // Metodo para iniciar sesion con un usuario
 router.post('/login', async (req, res) => {
   try {
+    console.log(req.body);
     const loginUserEntry = toLoginUserEntry(req.body)
-    console.log(loginUserEntry);
     const user = await userController.login(loginUserEntry.email, loginUserEntry.password)
     res.status(200).json(user)
   } catch (error: any) {
