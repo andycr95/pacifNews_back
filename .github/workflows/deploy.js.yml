@@ -9,10 +9,6 @@ on:
   pull_request:
     branches: [ "main" ]
 
-env:
-  ACCESS_TOKEN_SECRET: unipacifico
-  DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
 permissions:
   contents: read
 
@@ -47,6 +43,9 @@ jobs:
         docker_build_args: |
             DATABASE_URL
             ACCESS_TOKEN_SECRET
+      env:
+        ACCESS_TOKEN_SECRET: unipacifico
+        DATABASE_URL: ${{ secrets.DATABASE_URL }}
 
 
 
