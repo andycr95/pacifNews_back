@@ -15,6 +15,12 @@ export default class ArticleController {
         return article
     }
 
+    // Metodo para obtener los comunicados populares
+    public static async getPopularArticles (): Promise<any> {
+        const articles = await prisma.article.findMany({take: 3, orderBy: { content: 'desc' }})
+        return articles
+    }
+
     // Metodo para crear varios comunicados
     public static async createArticles (body: any): Promise<any> {
         const articles = await prisma.article.createMany({

@@ -14,6 +14,17 @@ router.get('/', async (_req, res) => {
   }
 })
 
+// Lista de articulos populares
+router.get('/popular', async (_req, res) => {
+  try {
+    const articles = await articleController.getPopularArticles()
+    res.status(200).json(articles)
+  } catch (error: any) {
+    console.log(error);
+    res.status(400).json({error: error.message})
+  }
+});
+
 // Registrar articulos
 router.post('/', async (req, res) => {
     try {
