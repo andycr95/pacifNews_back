@@ -28,3 +28,12 @@ model Article {
   publishedAt String?
   content String?
 }
+
+model New {
+  id    Int     @id @default(autoincrement())
+  title String?
+  description  String?
+  content String?
+  urlToImage String?
+  publishedAt DateTime @updatedAt
+}

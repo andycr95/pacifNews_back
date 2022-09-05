@@ -18,5 +18,15 @@ export interface IEnv {
   staticPath: string
 }
 
+export interface News {
+  id: number
+  title: string
+  description: string
+  content: string
+  urlToImage: string,
+  publishedAt: string
+}
+
 export type NewUserEntry = Omit<User, 'id'>
+export type NewNewEntry = Omit<News, 'id'>
 export type LoginUserEntry = Omit<User, 'id' | 'name' | 'phoneNumber'>
