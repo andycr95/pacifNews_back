@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         else {
             res.status(200).json({
                 message: 'File uploaded successfully',
-                filename: `https://pacific-news-back.herokuapp.com/${req.file!.filename}`
+                filename: `https://pacific-news-back.herokuapp.com/${req.file?.filename}`
             });
         }
     })

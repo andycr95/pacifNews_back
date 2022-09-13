@@ -16,6 +16,7 @@ COPY --from=0 /usr/app/build .
 COPY --from=0 /usr/app/prisma ./prisma
 COPY --from=0 /usr/app/task-definition.json ./task-definition.json
 RUN npx prisma generate
+RUN mkdir ./uploads
 RUN echo "DATABASE_URL=mysql://pacificnews_usr_ex:ESz4gu3abBEiEXue@192.241.155.75:3306/pacificNews?schema=public ACCESS_TOKEN_SECRET=unipacifico" >> ./.env
 RUN npm install pm2 -g
 RUN ls -a
