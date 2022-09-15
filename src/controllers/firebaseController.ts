@@ -1,6 +1,6 @@
 import admin from 'firebase-admin';
 import { Message } from '../types';
-const certFirebase = require('../../firebase.json');
+const certFirebase = require('../firebase.json');
 const app = admin.initializeApp({
     credential: admin.credential.cert(certFirebase)
 });
