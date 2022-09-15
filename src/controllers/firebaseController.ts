@@ -24,8 +24,6 @@ export default class FirebaseController {
     }
 
     public static async registerToken (token: string): Promise<any | unknown> {
-        console.log("token", token);
-        
         await app.firestore().collection('tokens').add({
             value: token
         }).then((response) => {
