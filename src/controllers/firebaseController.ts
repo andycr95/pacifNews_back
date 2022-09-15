@@ -23,11 +23,11 @@ export default class FirebaseController {
         });
     }
 
-    public static async registerToken (token: string): Promise<any | unknown> {
-        console.log(token);
+    public static async registerToken (token: any): Promise<any | unknown> {
+        console.log(token.token);
         
         await app.firestore().collection('tokens').add({
-            value: token
+            value: token.token
         }).then((response) => {
             return response;
         }).catch((error) => {
