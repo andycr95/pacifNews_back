@@ -25,18 +25,14 @@ export default class FirebaseController {
 
     public static async registerToken (token: any): Promise<any | unknown> {
         await app.firestore().collection('tokens').get().then((snapshot) => {
-            snapshot.forEach((doc) => {
-                if (doc.data().token === token.token) {
+            snapshot.forEach(async (doc) => {
+                if (doc.data().value === token.token) {
                     return 'Token ya registrado';
-                } else {
-                    app.firestore().collection('tokens').add({
-                        value: token.token
-                    }).then((response) => {
-                        return response;
-                    }).catch((error) => {
-                        return error;
-                    });
-                }
+                } 
+
+                return await app.firestore().collection('tokens').add({
+                    value: token.token
+                }).then((response) => { return response });
             });
         }).catch((error) => {
             return error;
