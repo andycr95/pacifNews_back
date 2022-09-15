@@ -30,6 +30,11 @@ jobs:
       with:
         envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
         envkey_ACCESS_TOKEN_SECRET: unipacifico
+        GOOGLE_APPLICATION_CREDENTIALS: ./firebase.json
+        apiKey: ${{ secrets.APIKEY }}
+        projectId: ${{ secrets.PROJECTID }}
+        appId: ${{ secrets.APPID }}
+        measurementId: ${{ secrets.MEASUREMENTID }}
         file_name: ./.env
         fail_on_empty: false
 
@@ -46,7 +51,4 @@ jobs:
       env:
         ACCESS_TOKEN_SECRET: unipacifico
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
-
-
-
 

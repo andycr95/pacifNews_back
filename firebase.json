@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "pacificnews-9b1d6",
+  "private_key_id": "27275cb01e9ca51ecb87c231f68d93806d2b835b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC2DFpumIGWnazc\n2d3KDHFfYvl/3u9IygQGsVj5EX+6sgtxb21gVp/LWpQglqFARjYCYsAHle8YAep4\nVXlbHLHv7DLRAySYO+PhH2c5Ho2ixn1emK4JcYnlQld9DJI8ocvMRx4EZkk0OEgH\nWSewb6M8WPfdM7PdUBQuhCChQIAs+0eI9U8W+LaLKRmKc9bQP3zaI3PPr955pZar\nwW7qCcAHlJaxMY+oLqOa0Cs2e1e+d/jZd8jGIMKkbFMhk9VvfHVsvEOZ5L5yfmN+\nsxIWUW98MgoPGNtoyVmw03w+LV3FeEPFFFZObCJhvk8ZbwSZTzLc5WuZ4xNpxNMl\nIBPJjPUJAgMBAAECggEAHZ758efXohGqyE6cw1zt74bTsOYtygqwyAQARZp+zXpd\n2Um3osbFflmRI5JOz339GLtHopRXUHEzXPwPYG9VVoP4qsCXqjuIcx9gdM9PXW5t\nhMBUBQ5X0RlP0fWDL+FlnyntLOsVuyzzL1rm1dL8XPve7LuWZwq6Fe2Cv6oWkPrV\nIC2hgptvPfNB3wC/Mfcs4BSyUtBGMqjltcAhzN0C97zzHGShedT6f3IhlcEvPLC3\nQtj0ZjkFEDYkiKKt+mdaAuwmcT8UrmwUEmPVKtnxVwMv0PrP3oEPlAZl/t/iQ2Lk\nN4FKTEO0mb67mROE4VWRKDlr9S9xoIBC2NxDTZLw/wKBgQDzgSXAekaZ+YDu2TEC\nR7FlJDqW+uENUUOx8P7qAvp/Si4lQaTAzQPhdp5bPoT9Vf2WkYyshjQDKEkRoGV0\nug5JI5fk1iY7PSIqmp0NFbEFdCxRe5DeFXgn+LVPjqqjlhxPMKF4jpS4ncjRFagP\nkNzQKNxDKO/iSa63XVkgfAGI6wKBgQC/Y983msO2Yqm4Mjl5hG3OjgIPdkoa+CAz\nezqQyUVw53Zve6G+0fxCubIkSMzC0XA30qNuX7M+eiDQMkCrIPlwvEbAaoVpzw9E\nfLavlKbkOotx3w33BysRpMTIlNFPseTs8rZnKjR3z5IFwXFTJPsFt3eGwCnx1PVw\nPx0rBwF82wKBgHg8+FA/0KbtTd4i/xE6J31i00+EGCbETuIJt0YELH84OOsKq/jM\nAzOMqAs0JuUVVf/IZSc3qW05skLy6cYmrTEuUy2bFQvBVyKkcBJq+JtRzyR5GIKh\nJVDPfXAIaXgXgmkUAVePSB6VQvkDcZYmGPLsij7bcwBRE+XVQVJKCVP7AoGBAKC0\nBnkVHaKmY6YDnhj35o/a08YR6BWPJNK1dS6fogw0flELuXuVrECG1hr7edtXqudk\nmdAS0VnziFvo5j4LGQfdP3dPuihnMYWrRmZV5nCa6/24cmxq+3H8LTPTKZHGaNfA\n0QH9AUNc6lqk3DgZRCG/tMBT2KRz0Ybnp+E6J7ijAoGAeF0x0NmfKpfpiw3tH6m1\n7pPZeklCXmyNd2gO2OldFwJpsNnNqj+uxYyUMTNuRTO78rOLIj3L0CwZA4UCy+ik\ndaC7DjJfxhJHw3aeDjS4xbu/pfxhnaae9Rxolr1EMRaSgrZo5YmWPZEXOc3Q1K3g\n3KoatYQqHVWd8MSE8sBRiNI=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-xdchy@pacificnews-9b1d6.iam.gserviceaccount.com",
+  "client_id": "116015807332382250257",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-xdchy%40pacificnews-9b1d6.iam.gserviceaccount.com"
+}

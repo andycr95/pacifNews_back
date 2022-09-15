@@ -1,10 +1,12 @@
 import { PrismaClient } from '@prisma/client'
+import { NewArticleEntry } from '../types'
+import notificationController from './firebaseController'
 const prisma = new PrismaClient()
 
 export default class ArticleController {
     // Listar todos los comunicados
     public static async getArticles (): Promise<any> {
-        const articles = await prisma.article.findMany()
+        const articles = await prisma.article.findMany({orderBy: { id: 'desc' }})
         return articles
     }
 
@@ -29,11 +31,25 @@ export default class ArticleController {
         return articles
     }
 
+    //Metodo para crear un comunicado
+    public static async createArticle (body: NewArticleEntry): Promise<any> {
+        const article = await prisma.article.create({ data: body })
+        const message = {
+            notification: {
+                title: 'Nuevo comunicado',
+                body: article?.title,
+                imageUrl: article?.urlToImage
+            },
+            topic: 'articles'
+        }
+        await notificationController.emitNotification(message);
+        return article
+    }
+
     // Metodo para crear varios comunicados
     public static async createArticles (body: any): Promise<any> {
         const articles = await prisma.article.createMany({
-            data: body
-        })
+            data: body })
         return articles
     }
 
