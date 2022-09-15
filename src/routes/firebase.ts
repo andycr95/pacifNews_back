@@ -6,7 +6,7 @@ const router = express.Router()
 // Registrar token
 router.post('/', async (req, res) => {
     try {
-        const token = req.body.token;
+        const token = req.body;
         const respToken = await firebaseController.registerToken(token);
         res.status(200).json(respToken)
     } catch (error: any) {
