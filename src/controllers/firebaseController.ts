@@ -29,7 +29,7 @@ export default class FirebaseController {
             data: {
                 articleId: argument.notification.data
             },
-        }, true).then((resp) => {
+        }, false).then((resp) => {
             console.log("Notificacion enviada: "+ resp.successCount);
             return "Notificacion enviada";
         }).catch((error) => {
