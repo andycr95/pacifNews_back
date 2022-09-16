@@ -9,16 +9,31 @@ export default class FirebaseController {
 
 
     public static async emitNotification (argument: Message): Promise<any | unknown> {
-        await app.messaging().send({
+        const tokensWithoutAplied = await app.firestore().collection('tokens').get();
+        const tokens: any[] = [];
+        if (tokensWithoutAplied.empty) {
+            console.log('vacia');
+            return 'No hay tokens registrados';
+        }
+        tokensWithoutAplied.forEach(async (doc) => {
+            tokens.push(doc.data().token);
+        });
+        console.log(tokens);
+        await app.messaging().sendMulticast({
+            tokens,
             notification: {
                 title: argument.notification.title,
                 body: argument.notification.body,
-                imageUrl: argument.notification.imageUrl
+                imageUrl: argument.notification.imageUrl,
             },
-            topic: argument.topic
-        }, false).then((response) => {
-            return response;
+            data: {
+                articleId: argument.notification.data
+            },
+        }, true).then(() => {
+            console.log("Notificacion enviada");
+            return "Notificacion enviada";
         }).catch((error) => {
+            console.log("Notificacion errada: ", error);
             return error;
         });
     }

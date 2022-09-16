@@ -38,11 +38,12 @@ export default class ArticleController {
             notification: {
                 title: 'Nuevo comunicado',
                 body: article?.title,
-                imageUrl: article?.urlToImage
+                imageUrl: article?.urlToImage,
+                data: article.id.toString()
             },
             topic: 'articles'
         }
-        await notificationController.emitNotification(message);
+        notificationController.emitNotification(message);
         return article
     }
 

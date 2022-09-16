@@ -41,6 +41,7 @@ export interface Message {
         title: string
         body: any
         imageUrl: any
+        data: any
     },
     topic: string
 }
