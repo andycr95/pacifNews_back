@@ -29,8 +29,8 @@ export default class FirebaseController {
             data: {
                 articleId: argument.notification.data
             },
-        }, true).then(() => {
-            console.log("Notificacion enviada");
+        }, true).then((resp) => {
+            console.log("Notificacion enviada: "+ resp.successCount);
             return "Notificacion enviada";
         }).catch((error) => {
             console.log("Notificacion errada: ", error);
@@ -39,16 +39,17 @@ export default class FirebaseController {
     }
 
     public static async registerToken (token: any): Promise<any | unknown> {
-        await app.firestore().collection('tokens').get().then(async (snapshot) => {
-            if (snapshot.size === 0) await app.firestore().collection('tokens').add(token);
-            snapshot.forEach(async (doc) => {
-                if (doc.data().token === token.token) {
-                    return console.log('Token ya registrado');
-                }
-                await app.firestore().collection('tokens').add(token);
-                
-            });
+        await app.firestore().collection('tokens').where('token', '==', token.token).get().then((querySnapshot) => {
+            if (querySnapshot.empty) {
+                app.firestore().collection('tokens').add(token);
+                console.log("Token registrado");
+                return "Token registrado";
+            } else {
+                console.log("Token ya registrado");
+                return "Token ya registrado";
+            }
         }).catch((error) => {
+            console.log(error);
             return error;
         });
     }
