@@ -1,10 +1,18 @@
 import { PrismaClient } from '@prisma/client'
-import { NewUserEntry, User } from '../types'
+import { LoginUserEntry, NewUserEntry, User } from '../types'
 import jwt from '../utils/jwt'
 import bcrypt from 'bcryptjs'
+import Axios from "axios";
 const prisma = new PrismaClient()
 
 export default class UserController {
+  //Login a la api de la universidad 
+  public static async validate (user: LoginUserEntry): Promise<any> {
+    const { email, password } = user;
+    const resp = await Axios.post(`http://api.unipacifico.edu.co/apiunipacifico/public/api/auth/userLogin?usuario=${email}&pass=${password}`, { responseType: 'json' });
+    return resp.data;
+}
+
   // Listar todos los usuarios
   public static async getUser (): Promise<any> {
     const users = await prisma.user.findMany()

@@ -13,7 +13,7 @@ const isString = (string: string): boolean => {
 }
 
 const parsePassword = (passwordFromRequest: any): string => {
-  if (!isString(passwordFromRequest) || !isMajor(passwordFromRequest, 6)) {
+  if (!isString(passwordFromRequest) || !isMajor(passwordFromRequest, 2)) {
     throw new Error('Campo contraseña invalido o vacio')
   }
 
@@ -24,13 +24,8 @@ const isMajor = (data: string, length: number): boolean => {
   return Boolean(data.length > length)
 }
 
-const isEmail = (email: string): boolean => {
-  const emailFormat = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/
-  return emailFormat.test(email)
-}
-
 const parseEmail = (emailFromRequest: any): string => {
-  if (!isString(emailFromRequest) || !isEmail(emailFromRequest)) {
+  if (!isString(emailFromRequest) || !isMajor(emailFromRequest, 2)) {
     throw new Error('Campo correo invalido o vacio')
   }
 

@@ -85,4 +85,16 @@ router.post('/login', async (req, res) => {
   }
 })
 
+// Metodo para iniciar sesion con un usuario
+router.post('/validate', async (req, res) => {
+  try {
+    const loginUserEntry = toLoginUserEntry(req.body)
+    const user = await userController.validate(loginUserEntry)
+    res.status(200).json(user)
+  } catch (error: any) {
+    console.log(error);
+    res.status(400).json({error: error.message})
+  }
+})
+
 export default router
