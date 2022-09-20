@@ -69,16 +69,6 @@ export default class UserController {
     return deletedDairyEntry
   }
 
-  // Inicio de sesion
-  public static async login (email: string, password: string): Promise<any> {
-    const user = await prisma.user.findUnique({ where: { email } })
-    if (user == null) throw new Error('Usuario no encontrado')
-    const isMatch = await bcrypt.compare(password, user.password)
-    if (!isMatch) throw new Error('Contraseña incorrecta')
-    const token = await jwt.signAccessToken({ id: user.id })
-    return { user, token }
-  }
-
   // Verificar si un usuario esta logueado
   public static async isLoggedIn (token: string | undefined): Promise<any> {
     if (!token) throw new Error('Usuario no autenticado');
