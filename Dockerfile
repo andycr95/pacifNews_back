@@ -2,12 +2,12 @@ FROM node:lts-alpine
 WORKDIR /usr/app
 COPY . .
 RUN ls -a
-RUN npm install -g npm@8.15.1
+RUN npm install -g npm@8.19.2
 RUN npm install
 RUN npm run build
 
 ## this is stage two , where the app actually runs
-FROM node:lts-alpine
+FROM node:lts-alpine    
 WORKDIR /usr/app
 COPY package.json ./
 RUN ls -a
