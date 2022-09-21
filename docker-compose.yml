@@ -1,20 +1,6 @@
 version: '3.4'
 
 services:
-  db:
-    image: mysql:5.7
-    restart: always
-    environment:
-      MYSQL_DATABASE: 'pacificNews'
-      MYSQL_USER: 'pacificnews_usr_ex'
-      MYSQL_PASSWORD: 'ESz4gu3abBEiEXue'
-      MYSQL_ROOT_PASSWORD: 'ESz4gu3abBEiEXue'
-    ports:
-      - '3306:3306'
-    expose:
-      - '3306'
-    volumes:
-      - my-db:/var/lib/mysql
   pacifnewsback:
     image: pacifnewsback
     build:
@@ -23,5 +9,3 @@ services:
     env_file: .env
     ports:
       - 5000:80
-volumes:
-  my-db:
