@@ -16,6 +16,7 @@ COPY --from=0 /usr/app/build .
 COPY --from=0 /usr/app/prisma ./prisma
 COPY --from=0 /usr/app/task-definition.json ./task-definition.json
 COPY --from=0 /usr/app/firebase.json ./firebase.json
+RUN npx prisma migrate dev
 RUN npx prisma generate
 RUN mkdir ./uploads
 RUN echo "DATABASE_URL=mysql://b1cc1b41f50a34:f5dd732c@us-cdbr-east-06.cleardb.net/heroku_774c7aaa1f29565?reconnect=true ACCESS_TOKEN_SECRET=unipacifico" >> ./.env
