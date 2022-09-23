@@ -39,5 +39,18 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+//Actualizar una parrilla
+router.put('/:id', async (req, res) => {
+    try {
+        let id = Number(req.params.id);
+        const tvgrillEntry = toNewTvGrillEntry(req.body);
+        const tvgrill = await micelaneusController.updateTvGrill(id, tvgrillEntry);
+        res.status(200).json(tvgrill)
+    } catch (error: any) {
+        console.log(error);
+        res.status(400).json({error: error.message})
+    }
+});
+
 
 export default router

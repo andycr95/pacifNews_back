@@ -33,4 +33,11 @@ export default class MicelaneusController {
         return grill
     }
 
+    //Metodo para actualizar una parrilla de tv
+    public static async updateTvGrill (id: number, body: NewTvGrillEntry): Promise<any> {
+        const grill = await prisma.grill.update({ where: { id }, data: body })
+        return grill
+    }
+    
+
 }
