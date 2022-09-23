@@ -39,6 +39,7 @@ export default class ArticleController {
                 title: 'Nuevo comunicado',
                 body: article?.title,
                 imageUrl: article?.urlToImage,
+                fileUrl: null,
                 data: article.id.toString()
             },
             topic: 'articles'

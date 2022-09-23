@@ -27,6 +27,17 @@ router.get('/latest', async (_req, res) => {
   }
 })
 
+//Registro masivo de articulos
+router.post('/bulk', async (req, res) => {
+    try {
+        const news = await newsController.createNews(req.body);
+        res.status(200).json(news)
+    } catch (error: any) {
+        console.log(error);
+        res.status(400).json({error: error.message})
+    }
+});
+
 
 // Obtener una novedad
 router.get('/:id', async (req, res) => {

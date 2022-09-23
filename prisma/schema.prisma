@@ -35,3 +35,10 @@ model New {
   urlToImage String?
   publishedAt DateTime @updatedAt
 }
+
+model Grill {
+  id    Int     @id @default(autoincrement())
+  title String?
+  urlToFile String?
+  publishedAt DateTime @updatedAt
+}

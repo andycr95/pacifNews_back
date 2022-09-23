@@ -32,16 +32,24 @@ export interface Article {
   title: string
   description: string
   content: string
-  urlToImage: string,
+  urlToImage: string
+  publishedAt: string?
+}
+
+export interface TvGrill {
+  id: number
+  title: string
+  urlToFile: string
   publishedAt: string?
 }
 
 export interface Message {
     notification: {
-        title: string
-        body: any
-        imageUrl: any
-        data: any
+      title: string
+      body: any | null
+      data: any | null
+      imageUrl: string | null
+      fileUrl: string | null
     },
     topic: string
 }
@@ -49,4 +57,5 @@ export interface Message {
 export type NewUserEntry = Omit<User, 'id'>
 export type NewNewEntry = Omit<News, 'id'>
 export type NewArticleEntry = Omit<Article, 'id' | 'publishedAt'>
+export type NewTvGrillEntry = Omit<TvGrill, 'id' | 'publishedAt'>
 export type LoginUserEntry = Omit<User, 'id' | 'name' | 'phoneNumber'>

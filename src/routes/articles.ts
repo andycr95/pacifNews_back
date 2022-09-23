@@ -49,6 +49,17 @@ router.post('/', async (req, res) => {
     }
 });
 
+//Registro masivo de articulos
+router.post('/bulk', async (req, res) => {
+    try {
+        const articles = await articleController.createArticles(req.body);
+        res.status(200).json(articles)
+    } catch (error: any) {
+        console.log(error);
+        res.status(400).json({error: error.message})
+    }
+});
+
 // Obtener un articulo
 router.get('/:id', async (req, res) => {
     try {

@@ -24,7 +24,7 @@ export default class FirebaseController {
             notification: {
                 title: argument.notification.title,
                 body: argument.notification.body,
-                imageUrl: argument.notification.imageUrl,
+                imageUrl: argument.notification.imageUrl!,
             },
             data: {
                 articleId: argument.notification.data

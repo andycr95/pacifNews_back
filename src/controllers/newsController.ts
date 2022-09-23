@@ -17,6 +17,13 @@ export default class NewController {
         return news
     }
 
+    // Metodo para crear varias novedades
+    public static async createNews (body: any): Promise<any> {
+        const news = await prisma.new.createMany({
+            data: body })
+        return news
+    }
+
     // Metodo para obtener una novedad
     public static async getNewById (id: number): Promise<any> {
         const newId = await prisma.new.findUnique({ where: { id } })
