@@ -29,6 +29,7 @@ jobs:
       uses: SpicyPizza/create-envfile@v1.3
       with:
         envkey_DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        envkey_POSTGRESQL_DATABASE_URL: ${{ secrets.POSTGRESQL_DATABASE_URL }}
         envkey_ACCESS_TOKEN_SECRET: unipacifico
         GOOGLE_APPLICATION_CREDENTIALS: ./firebase.json
         apiKey: ${{ secrets.APIKEY }}
@@ -47,8 +48,10 @@ jobs:
         usedocker: true
         docker_build_args: |
             DATABASE_URL
+            POSTGRESQL_DATABASE_URL
             ACCESS_TOKEN_SECRET
       env:
         ACCESS_TOKEN_SECRET: unipacifico
         DATABASE_URL: ${{ secrets.DATABASE_URL }}
+        POSTGRESQL_DATABASE_URL: ${{ secrets.POSTGRESQL_DATABASE_URL }}
 
