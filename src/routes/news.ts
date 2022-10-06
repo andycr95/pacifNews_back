@@ -1,6 +1,5 @@
 import express from 'express'
 import newsController from '../controllers/newsController'
-import userController from '../controllers/userController'
 
 
 const router = express.Router()
@@ -28,7 +27,7 @@ router.get('/latest', async (_req, res) => {
 })
 
 //Registro masivo de articulos
-router.post('/bulk', async (req, res) => {
+/*router.post('/bulk', async (req, res) => {
     try {
         const news = await newsController.createNews(req.body);
         res.status(200).json(news)
@@ -36,7 +35,7 @@ router.post('/bulk', async (req, res) => {
         console.log(error);
         res.status(400).json({error: error.message})
     }
-});
+});*/
 
 
 // Obtener una novedad
@@ -52,7 +51,7 @@ router.get('/:id', async (req, res) => {
 });
 
 // Registrar novedades
-router.post('/', async (req, res) => {
+/*router.post('/', async (req, res) => {
     const token = req.headers.authorization
     try {
       await userController.isLoggedIn(token)
@@ -93,6 +92,6 @@ router.delete('/:id', async (req, res) => {
       res.status(400).json({error: error.message})
     }
   })
-
+*/
 
 export default router

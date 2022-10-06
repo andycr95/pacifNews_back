@@ -1,46 +1,45 @@
 import { PrismaClient } from '@prisma/client'
-import { NewNewEntry, News } from '../types'
+import { NoticiasActualidads } from '../types'
 const prisma = new PrismaClient()
-let date: Date = new Date('MM-dd-yyyy');
 
 export default class NewController {
     
     // Listar todas las novedades
-    public static async getNews (): Promise<any> {
-        const news = await prisma.new.findMany()
+    public static async getNews (): Promise<NoticiasActualidads[]> {
+        const news = await prisma.noticias_actualidads.findMany({take: 4, orderBy: { id: 'desc' }})
         return news
     }
 
     // Listar las ultimas novedades
-    public static async getNewNews (): Promise<any> {
-        const news = await prisma.new.findMany({take: 10, orderBy: { content: 'desc' }})
+    public static async getNewNews (): Promise<NoticiasActualidads[]> {
+        const news = await prisma.noticias_actualidads.findMany({take: 4, orderBy: { id: 'desc' }})
         return news
     }
 
     // Metodo para crear varias novedades
-    public static async createNews (body: any): Promise<any> {
+    /*public static async createNews (body: any): Promise<any> {
         const news = await prisma.new.createMany({
             data: body })
         return news
-    }
+    }*/
 
     // Metodo para obtener una novedad
-    public static async getNewById (id: number): Promise<any> {
-        const newId = await prisma.new.findUnique({ where: { id } })
-        if (newId == null) throw new Error('Usuario no encontrado')
+    public static async getNewById (id: number): Promise<NoticiasActualidads> {
+        const newId = await prisma.noticias_actualidads.findUnique({ where: { id } })
+        if (newId == null) throw new Error('Noticia no encontrada')
         return newId
     }
 
     // Metodo para obtener las novedades populares
-    public static async getPopularNews (): Promise<any> {
-        const newsCount = await prisma.new.count();
+    public static async getPopularNews (): Promise<NoticiasActualidads[]> {
+        const newsCount = await prisma.noticias_actualidads.count();
         const skip = Math.floor(Math.random() * newsCount);
-        const news = await prisma.new.findMany({take: 3, skip: skip, orderBy: { content: 'desc' }})
+        const news = await prisma.noticias_actualidads.findMany({take: 4, skip: skip, orderBy: { id: 'desc' }})
         return news
     }
 
     // Metodo para crear novedad
-    public static async addNews (newDairyEntry: NewNewEntry): Promise<News | unknown> {
+    /*public static async addNews (newDairyEntry: NewNewEntry): Promise<News | unknown> {
         console.log(newDairyEntry);
         
         const news = newDairyEntry
@@ -54,10 +53,10 @@ export default class NewController {
         })
         
         return addedDairyEntry
-    }
+    }*/
 
        // Actualizar un usuario
-    public static async updateNew (id: number, newDairyEntry: NewNewEntry): Promise<News | unknown> {
+    /*public static async updateNew (id: number, newDairyEntry: NewNewEntry): Promise<News | unknown> {
         const newId = await prisma.new.findUnique({ where: { id } })
         if (newId == null) throw new Error('Novedad no encontrada')
         const updatedDairyEntry = await prisma.new.update({
@@ -71,14 +70,14 @@ export default class NewController {
         }
         })
         return updatedDairyEntry
-    }
+    }*/
 
    // Eliminar una novedad
-   public static async deleteNew (id: number): Promise<any> {
+   /*public static async deleteNew (id: number): Promise<any> {
     const newId = await prisma.new.findUnique({ where: { id } })
     if (newId == null) throw new Error('Usuario no encontrado')
     const deletedDairyEntry = await prisma.new.delete({ where: { id } })
     return deletedDairyEntry
-   }
+   }*/
 
 }

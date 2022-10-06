@@ -1,11 +1,12 @@
-import { PrismaClient } from '@prisma/client'
+/*import { PrismaClient } from '@prisma/client'
 import { NewTvGrillEntry } from '../types'
 import notificationController from './firebaseController'
 const prisma = new PrismaClient()
+*/
 
 export default class MicelaneusController {
     // Listar todas la parrillas de tv
-    public static async getTvGrills (): Promise<any> {
+    /*public static async getTvGrills (): Promise<any> {
         const tvGrids = await prisma.grill.findMany({orderBy: { id: 'desc' }})
         return tvGrids
     }
@@ -38,6 +39,6 @@ export default class MicelaneusController {
         const grill = await prisma.grill.update({ where: { id }, data: body })
         return grill
     }
-    
+    */
 
 }

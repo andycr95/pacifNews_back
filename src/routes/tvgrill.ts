@@ -1,9 +1,10 @@
 import express from 'express'
-import micelaneusController from '../controllers/micelaneusController'
-import toNewTvGrillEntry from '../utils/micelaneusParsers'
+/*import micelaneusController from '../controllers/micelaneusController'
+import toNewTvGrillEntry from '../utils/micelaneusParsers'*/
 
 const router = express.Router()
 
+/*
 // Listar todos las parrillas
 router.get('/', async (_req, res) => {
   try {
@@ -51,6 +52,6 @@ router.put('/:id', async (req, res) => {
         res.status(400).json({error: error.message})
     }
 });
-
+*/
 
 export default router

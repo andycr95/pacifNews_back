@@ -1,11 +1,11 @@
 import express from 'express'
-import articleController from '../controllers/articleController'
-import toNewArticleEntry from '../utils/articleParsers'
+/*import articleController from '../controllers/articleController'
+import toNewArticleEntry from '../utils/articleParsers'*/
 
 const router = express.Router()
 
 // Listar todos los articulos
-router.get('/', async (_req, res) => {
+/*router.get('/', async (_req, res) => {
   try {
     const articles = await articleController.getArticles()
     res.status(200).json(articles)
@@ -72,5 +72,6 @@ router.get('/:id', async (req, res) => {
     }
 });
 
+*/
 
 export default router

@@ -6,39 +6,29 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
-  url      = env("DATABASE_URL")
+  provider = "postgresql"
+  url      = env("POSTGRESQL_DATABASE_URL")
 }
 
-model User {
-  id    Int     @id @default(autoincrement())
-  email String  @unique
-  name  String
-  password String
-  phoneNumber String?
+model noticias_actualidads {
+  id Int @id @default(autoincrement())
+  user_id Int
+  departamento_id Int
+  categoria String?
+  titulo String?
+  titulo_ingles String?
+  imagen_miniatura String?
+  imagen_principal String?
+  descripcion_corta String?
+  descripcion_corta_ingles String?
+  contenido String?
+  contenido_ingles String?
+  contador_visita Int
+  tags String?
+  prioridad String?
+  estado String?
+  created_at DateTime
+  updated_at DateTime
+  fecha_noticia String?
 }
 
-model Article {
-  id    Int     @id @default(autoincrement())
-  title  String?
-  description String?
-  urlToImage String?
-  publishedAt String?
-  content String?
-}
-
-model New {
-  id    Int     @id @default(autoincrement())
-  title String?
-  description  String?
-  content String?
-  urlToImage String?
-  publishedAt DateTime @updatedAt
-}
-
-model Grill {
-  id    Int     @id @default(autoincrement())
-  title String?
-  urlToFile String?
-  publishedAt DateTime @updatedAt
-}

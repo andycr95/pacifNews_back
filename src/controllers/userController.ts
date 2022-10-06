@@ -1,9 +1,6 @@
-import { PrismaClient } from '@prisma/client'
-import { LoginUserEntry, NewUserEntry, User } from '../types'
+import { LoginUserEntry } from '../types'
 import jwt from '../utils/jwt'
-import bcrypt from 'bcryptjs'
 import Axios from "axios";
-const prisma = new PrismaClient()
 
 export default class UserController {
   //Login a la api de la universidad 
@@ -16,7 +13,7 @@ export default class UserController {
 }
 
   // Listar todos los usuarios
-  public static async getUser (): Promise<any> {
+  /*public static async getUser (): Promise<any> {
     const users = await prisma.user.findMany()
     return users
   }
@@ -89,5 +86,5 @@ export default class UserController {
     } catch (error) {
       throw new Error('Usuario no autenticado');
     }
-  }
+  }*/
 }

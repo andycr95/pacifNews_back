@@ -1,11 +1,11 @@
 import express from 'express'
 import userController from '../controllers/userController'
-import toNewUserEntry, { toLoginUserEntry } from '../utils/parsers'
+import { toLoginUserEntry } from '../utils/parsers'
 
 const router = express.Router()
 
 // Listar todos los usuarios
-router.get('/', async (req, res) => {
+/*router.get('/', async (req, res) => {
   const token = req.headers.authorization
   try {
     await userController.isLoggedIn(token)
@@ -83,7 +83,7 @@ router.post('/login', async (req, res) => {
     console.log(error);
     res.status(400).json({error: error.message})
   }
-})
+})*/
 
 // Metodo para iniciar sesion con un usuario
 router.post('/validate', async (req, res) => {
