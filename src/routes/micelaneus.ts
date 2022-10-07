@@ -17,6 +17,16 @@ router.get('/events', async (req, res) => {
     }
 })
 
+// listar eventos destacados
+router.get('/events/destacados', async (_req, res) => {
+    try {
+        const events = await micelaneusController.getEventsDestacados()
+        res.status(200).json(events)
+    } catch (error: any) {
+        res.status(500).json({ error: error.message })
+    }
+})
+
 // obtener evento destacado por id
 router.get('/events/:id', async (req, res) => {
     try {
