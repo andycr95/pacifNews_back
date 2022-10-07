@@ -9,7 +9,7 @@ const router = express.Router()
 router.get('/events', async (req, res) => {
     try {
         const page = Number(req.query.page) || 1
-        const limit = Number(req.query.limit) || 20
+        const limit = Number(req.query.limit) || 10
         const events = await micelaneusController.getEvents(page, limit)
         res.status(200).json(events)
     } catch (error: any) {
@@ -32,7 +32,7 @@ router.get('/events/:id', async (req, res) => {
 router.get('/videosI', async (req, res) => {
     try {
         const page = Number(req.query.page) || 1
-        const limit = Number(req.query.limit) || 20
+        const limit = Number(req.query.limit) || 10
         const videosI = await micelaneusController.getVideos(page, limit)
         res.status(200).json(videosI)
     } catch (error: any) {
@@ -55,7 +55,7 @@ router.get('/videosI/:id', async (req, res) => {
 router.get('/convocatorias', async (req, res) => {
     try {
         const page = Number(req.query.page) || 1
-        const limit = Number(req.query.limit) || 20
+        const limit = Number(req.query.limit) || 10
         const convocatorias = await micelaneusController.getConvocatorias(page, limit)
         res.status(200).json(convocatorias)
     } catch (error: any) {

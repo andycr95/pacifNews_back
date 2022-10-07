@@ -6,14 +6,21 @@ const prisma = new PrismaClient()
 
 export default class MicelaneusController {
 
-    // Listar eventos de la base de datos, con paginacion
+    // Listar eventos de la base de datos, con paginacion entre la fecha inicio y fecha fin
     static async getEvents(page: number, limit: number) {
-        const total = await prisma.hechos_destacados.count();
+        const total = await prisma.hechos_destacados.count({
+            where: {
+                estado: '1'
+            }
+        });
         const events = await prisma.hechos_destacados.findMany({
             skip: page < 1 ? 0 : (page - 1) * limit,
             take: limit,
             orderBy: {
                 id: 'desc'
+            },
+            where: {
+                estado: '1'
             }
         })
         const data = {
@@ -42,6 +49,9 @@ export default class MicelaneusController {
             take: 4,
             orderBy: {
                 id: 'desc'
+            },
+            where: {
+                estado: '1'
             }
         })
         return events
