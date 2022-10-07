@@ -136,11 +136,18 @@ export default class MicelaneusController {
     }
 
     // Listar todos los banners
-    static async getBanners() {
+    static async getBanners(): Promise<banners[]> {
         const banners = await prisma.banners.findMany({
             orderBy: {
                 id: 'desc'
             }
+        }).then((data: any[]) => {
+            for (let i = 0; i < data.length; i++) {
+                const e = data[i];
+                e.enlace_boton?.length == 0 ? e.tipo = null : e.enlace_boton?.includes('pdf') ? e.tipo = 'pdf' : e.tipo = 'url'
+            }
+
+            return data;
         })
         return banners
     }
