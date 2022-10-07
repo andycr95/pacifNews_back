@@ -3,7 +3,7 @@ import userRouter from './routes/users'
 import articleRouter from './routes/articles'
 import newsRouter from './routes/news'
 import firebaseRouter from './routes/firebase'
-import tvgrillRouter from './routes/tvgrill'
+import tvgrillRouter from './routes/micelaneus'
 import helmet from 'helmet'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -36,7 +36,7 @@ app.use('/api/users', userRouter)
 app.use('/api/articles', articleRouter)
 app.use('/api/news', newsRouter)
 app.use('/api/firebase', firebaseRouter)
-app.use('/api/tvgrills', tvgrillRouter)
+app.use('/api/micelaneus', tvgrillRouter)
 
 app.listen(PORT, () => {
   console.log(`listening on port ${PORT}`)

@@ -5,8 +5,8 @@ const prisma = new PrismaClient()
 export default class NewController {
     
     // Listar todas las novedades
-    public static async getNews (): Promise<NoticiasActualidads[]> {
-        const news = await prisma.noticias_actualidads.findMany({take: 4, orderBy: { id: 'desc' }})
+    public static async getNews (): Promise<any[]> {
+        const news = await prisma.noticias_actualidads.findMany({take: 30, orderBy: { id: 'desc' }})
         return news
     }
 

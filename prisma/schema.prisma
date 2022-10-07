@@ -32,3 +32,72 @@ model noticias_actualidads {
   fecha_noticia String?
 }
 
+model hechos_destacados {
+  id Int @id @default(autoincrement())
+  user_id Int
+  departamento_id Int
+  tags String?
+  tipo_hecho Int
+  enlace String?
+  titulo String?
+  titulo_ingles String?
+  imagen String?
+  imagen_principal String?
+  descripcion String?
+  descripcion_ingles String?
+  contenido String?
+  contenido_ingles String?
+  prioridad String?
+  estado String?
+  updated_at DateTime
+  created_at DateTime 
+  fecha_inicio String?
+  fecha_final String?
+}
+
+model videos_institucionales {
+  id Int @id @default(autoincrement())
+  user_id Int
+  departamento_id Int
+  titulo String?
+  titulo_ingles String?
+  imagen String?
+  tipo String?
+  enlace String?
+  estado String?
+  created_at DateTime
+  updated_at DateTime
+}
+
+model documentos {
+  id Int @id
+  user_id Int
+  descripcion String?
+  tags String?
+  estado String?
+  borrado String?
+  created_at DateTime
+  updated_at DateTime
+  documento String?
+  titulo String?
+  tipo String?
+  mes_documento String?
+  year_documento String?
+  fecha_cierre_documento String?
+}
+
+model banners {
+  id Int @id
+  user_id Int
+  pretitulo String?
+  color_pretitulo String?
+  titulo String?
+  color_titulo String?
+  imagen_fondo String?
+  estado String?
+  created_at DateTime
+  updated_at DateTime
+  estado_boton String?
+  texto_boton String?
+  enlace_boton String?
+}
