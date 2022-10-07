@@ -5,9 +5,11 @@ import newsController from '../controllers/newsController'
 const router = express.Router()
 
 // Listar todos los articulos
-router.get('/', async (_req, res) => {
+router.get('/', async (req, res) => {
   try {
-    const news = await newsController.getNews()
+    const page = Number(req.query.page) || 1
+    const limit = Number(req.query.limit) || 20
+    const news = await newsController.getNews(page, limit)
     res.status(200).json(news)
   } catch (error: any) {
     console.log(error);
