@@ -1,4 +1,5 @@
 import { PrismaClient } from '@prisma/client'
+import { banners } from '../types';
 /*import { NewTvGrillEntry } from '../types'
 import notificationController from './firebaseController'*/
 const prisma = new PrismaClient()
@@ -114,7 +115,7 @@ export default class MicelaneusController {
     }
 
     // Listar banners destacados
-    static async getBannersDestacados() {
+    static async getBannersDestacados(): Promise<banners[]> {
         const banners = await prisma.banners.findMany({
             where: {
                 estado: '1'
@@ -123,6 +124,13 @@ export default class MicelaneusController {
             orderBy: {
                 id: 'desc'
             }
+        }).then((data: any[]) => {
+            for (let i = 0; i < data.length; i++) {
+                const e = data[i];
+                e.enlace_boton?.length == 0 ? e.tipo = null : e.enlace_boton?.includes('pdf') ? e.tipo = 'pdf' : e.tipo = 'url'
+            }
+
+            return data;
         })
         return banners
     }

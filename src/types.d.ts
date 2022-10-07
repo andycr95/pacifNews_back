@@ -49,6 +49,23 @@ export interface NoticiasActualidads {
   fecha_noticia: DateTime
 }
 
+export interface banners {
+  id: number
+  user_id: number
+  pretitulo: String?,
+  color_pretitulo: String?,
+  titulo: String?,
+  color_titulo: String?,
+  imagen_fondo: String?,
+  estado: String?,
+  created_at: DateTime
+  updated_at: DateTime
+  estado_boton: String?,
+  texto_boton: String?,
+  enlace_boton: String?,
+  tipo: String?
+}
+
 export interface Article {
   id: number
   title: string
