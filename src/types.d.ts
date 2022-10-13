@@ -85,10 +85,10 @@ export interface TvGrill {
 export interface Message {
     notification: {
       title: string
-      body: any | null
-      data: any | null
-      imageUrl: string | null
-      fileUrl: string | null
+      body: any | null | any
+      data: any | null | any
+      imageUrl: string | null | any
+      fileUrl: string | null | any
     },
     topic: string
 }

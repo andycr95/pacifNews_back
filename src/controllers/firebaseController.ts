@@ -18,7 +18,6 @@ export default class FirebaseController {
         tokensWithoutAplied.forEach(async (doc) => {
             tokens.push(doc.data().token);
         });
-        console.log(tokens);
         await app.messaging().sendMulticast({
             tokens,
             notification: {
@@ -47,6 +46,37 @@ export default class FirebaseController {
             } else {
                 console.log("Token ya registrado");
                 return "Token ya registrado";
+            }
+        }).catch((error) => {
+            console.log(error);
+            return error;
+        });
+    }
+
+    //Obtener lista de usuarios desde firestore
+    public static async getUsers (): Promise<any | unknown> {
+        const users = await app.firestore().collection('users').get();
+        const usersList: any[] = [];
+        if (users.empty) {
+            console.log('vacia');
+            return 'No hay usuarios registrados';
+        }
+        users.forEach(async (doc) => {
+            usersList.push(doc.data());
+        });
+        return usersList;
+    }
+
+    // registrar usuario en firestore con token
+    public static async registerUser (user: any): Promise<any | unknown> {
+        await app.firestore().collection('users').where('token', '==', user.token).get().then((querySnapshot) => {
+            if (querySnapshot.empty) {
+                app.firestore().collection('users').add(user);
+                console.log("Usuario registrado");
+                return "Usuario registrado";
+            } else {
+                console.log("Usuario ya registrado");
+                return "Usuario ya registrado";
             }
         }).catch((error) => {
             console.log(error);
