@@ -18,7 +18,8 @@ router.post('/', async (req, res) => {
 //registrar usuario con token
 router.post('/user', async (req, res) => {
     try {
-        const {user, token} = req.body;
+        const token = req.body.token;
+        const user = JSON.parse(req.body.user);
         const respToken = await firebaseController.registerUser({user, token});
         res.status(200).json(respToken)
     } catch (error: any) {
