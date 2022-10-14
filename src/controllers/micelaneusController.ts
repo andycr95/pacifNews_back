@@ -32,15 +32,12 @@ export default class MicelaneusController {
         }
         return data;
     }
-
+    
     // obtener evento destacado por id
     static async getEventById(id: number) {
-        const event = await prisma.hechos_destacados.findUnique({
-            where: {
-                id: id
-            }
-        })
-        return event;
+        const event = await prisma.hechos_destacados.findUnique({ where: { id } })
+        if (event == null) throw new Error('Eventos no encontrado')
+        return event
     }
 
     // Listar eventos destacados, maximo 20

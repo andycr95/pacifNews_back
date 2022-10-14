@@ -39,4 +39,33 @@ router.get('/users', async (_req, res) => {
     }
 });
 
+// Enviar notificacion a un grupo de usuarios
+router.post('/notification/bulk', async (req, res) => {
+    try {
+        const { users, title, body } = req.body;
+        if (users.length == 0) {
+            const respToken = await firebaseController.emitNotificationBulk({title, body});
+            res.status(200).json(respToken)
+        } else {
+            const respToken = await firebaseController.emitNotificationToUsers({users, title, body});
+            res.status(200).json(respToken)
+        }
+    } catch (error: any) {
+        console.log(error);
+        res.status(400).json({error: error.message})
+    }
+});
+
+// Enviar notificacion a un usuario
+router.post('/notification', async (req, res) => {
+    try {
+        const argument = req.body;
+        const respToken = await firebaseController.emitNotificationToUser(argument);
+        res.status(200).json(respToken)
+    } catch (error: any) {
+        console.log(error);
+        res.status(400).json({error: error.message})
+    }
+});
+
 export default router

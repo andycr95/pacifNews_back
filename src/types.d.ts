@@ -93,6 +93,19 @@ export interface Message {
     topic: string
 }
 
+export interface FirebaseUser {
+  token: string,
+  user: {
+    estado: string
+    idpege: string
+    idusuario: string
+    usuario: string
+    nombre: string
+    documento: string
+    cargo: string
+  }
+}
+
 export type NewUserEntry = Omit<User, 'id'>
 export type NewNewEntry = Omit<News, 'id'>
 export type NewArticleEntry = Omit<Article, 'id' | 'publishedAt'>

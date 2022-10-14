@@ -26,10 +26,63 @@ export default class FirebaseController {
                 imageUrl: argument.notification.imageUrl!,
             },
             data: {
-                articleId: argument.notification.data
+                id: argument.notification.data.id,
+                type: argument.notification.data.type,
             },
         }, false).then((resp) => {
             console.log("Notificacion enviada: "+ resp.successCount);
+            return "Notificacion enviada";
+        }).catch((error) => {
+            console.log("Notificacion errada: ", error);
+            return error;
+        });
+    }
+
+    /// Emitir notificacion a un grupo de usuarios
+    public static async emitNotificationToUsers (argument: any): Promise<any | unknown> {
+        const users = await app.firestore().collection('users').where('user.idusuario', 'in', argument.users).get();
+        if (users.empty) {
+            console.log('vacia');
+            return 'No hay usuarios registrados';
+        }
+        const tokens: any[] = [];
+        users.forEach(async (doc) => {
+            tokens.push(doc.data().token);
+        });
+        await app.messaging().sendMulticast({
+            tokens,
+            notification: {
+                title: 'Tienes un nuevo mensaje',
+                body: argument.body,
+            },
+        }, false).then((resp) => {
+            console.log("Notificacion enviada: "+ resp.successCount);
+            return "Notificacion enviada";
+        }).catch((error) => {
+            console.log("Notificacion errada: ", error);
+            return error;
+        });
+    }
+
+    /// Emitir notificacion a un grupo de usuarios
+    public static async emitNotificationBulk (argument: any): Promise<any | unknown> {
+        const tokensWithoutAplied = await app.firestore().collection('tokens').get();
+        const tokens: any[] = [];
+        if (tokensWithoutAplied.empty) {
+            console.log('vacia');
+            return 'No hay tokens registrados';
+        }
+        tokensWithoutAplied.forEach(async (doc) => {
+            tokens.push(doc.data().token);
+        });
+        await app.messaging().sendMulticast({
+            tokens,
+            notification: {
+                title: 'Tienes un nuevo mensaje',
+                body: argument.body,
+            },
+        }, false).then((resp) => {
+            console.log("Notificacion enviada bulk: "+ resp.successCount);
             return "Notificacion enviada";
         }).catch((error) => {
             console.log("Notificacion errada: ", error);
@@ -80,6 +133,29 @@ export default class FirebaseController {
             }
         }).catch((error) => {
             console.log(error);
+            return error;
+        });
+    }
+
+    // emitir notificacion a un usuario
+    public static async emitNotificationToUser (argument: any): Promise<any | unknown> {
+        const user = await app.firestore().collection('users').where('user.idusuario', '==', argument.idusuario).get();
+        if (user.empty) {
+            console.log('vacia');
+            return 'No hay usuarios registrados';
+        }
+        await app.messaging().send({
+            token: user.docs[0].data().token,
+            notification: {
+                title: 'Tienes un nuevo mensaje',
+                body: argument.title
+            }
+        }).then((resp) => {
+            app.firestore().collection('notifications').add(argument);
+            console.log("Notificacion enviada: "+ resp);
+            return "Notificacion enviada";
+        }).catch((error) => {
+            console.log("Notificacion errada: ", error);
             return error;
         });
     }
