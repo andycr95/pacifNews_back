@@ -104,54 +104,79 @@ router.get('/banners/destacados', async (_req, res) => {
     }
 })
 
-/*
-// Listar todos las parrillas
-router.get('/', async (_req, res) => {
-  try {
-    const tvgrills = await micelaneusController.getTvGrills()
-    res.status(200).json(tvgrills)
-  } catch (error: any) {
-    console.log(error);
-    res.status(400).json({error: error.message})
-  }
+// Listar los canales de ivs
+router.get('/channels', async (_req, res) => {
+    const canales = await micelaneusController.getChannels()
+    res.status(200).json(canales)
 })
 
-// Registrar una parrilla
-router.post('/', async (req, res) => {
+// obtener canal por id
+router.get('/channels/select', async (req, res) => {
     try {
-        const tvgrillEntry = toNewTvGrillEntry(req.body);
-        const tvgrill = await micelaneusController.createTvGrill(tvgrillEntry);
-        res.status(200).json(tvgrill)
+        const arn = req.query.arn?.toString() || '';
+        const canal = await micelaneusController.getChannelById(arn);
+        res.status(200).json(canal)
     } catch (error: any) {
-        console.log(error);
-        res.status(400).json({error: error.message})
+        res.status(400).json({ error: error.message })
     }
-});
+})
 
-// Obtener una parrilla
-router.get('/:id', async (req, res) => {
+// crear un canal de ivs
+router.post('/channels', async (req, res) => {
     try {
-        let id = Number(req.params.id);
-        const tvgrill = await micelaneusController.getTvGrillById(id)
-        res.status(200).json(tvgrill)
+        const newChannel = {
+            authorized: req.body.authorized,
+            latencyMode: req.body.latencyMode,
+            name: req.body.name,
+            type: req.body.type
+        }
+        const addedChannel = await micelaneusController.addChannel(newChannel)
+        res.status(200).json(addedChannel)
     } catch (error: any) {
-        console.log(error);
-        res.status(400).json({error: error.message})
+        res.status(500).json({ error: error.message })
     }
-});
+})
 
-//Actualizar una parrilla
-router.put('/:id', async (req, res) => {
+/*
+// Crear un live stream
+router.post('/live', async (_req, res) => {
     try {
-        let id = Number(req.params.id);
-        const tvgrillEntry = toNewTvGrillEntry(req.body);
-        const tvgrill = await micelaneusController.updateTvGrill(id, tvgrillEntry);
-        res.status(200).json(tvgrill)
+        const live = await micelaneusController.createLive()
+        res.status(200).json(live)
     } catch (error: any) {
-        console.log(error);
-        res.status(400).json({error: error.message})
+        res.status(500).json({ error: error.message })
     }
-});
-*/
+})
+
+// Listar todos los live streams
+router.get('/live', async (_req, res) => {
+    try {
+        const lives = await micelaneusController.getLives()
+        res.status(200).json(lives)
+    } catch (error: any) {
+        res.status(500).json({ error: error.message })
+    }
+})
+
+// Listar live streams activos
+router.get('/live/activos', async (_req, res) => {
+    try {
+        const lives = await micelaneusController.getLiveActive()
+        res.status(200).json(lives)
+    } catch (error: any) {
+        res.status(500).json({ error: error.message })
+    }
+})
+
+// eliminar live stream por id
+router.delete('/live/:id', async (req, res) => {
+    try {
+        const live = await micelaneusController.deleteLive(req.params.id)
+        res.status(200).json(live)
+    } catch (error: any) {
+        res.status(400).json({ error: error.message })
+    }
+})*/
+
 
 export default router

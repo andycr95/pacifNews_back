@@ -1,9 +1,24 @@
-import { PrismaClient } from '@prisma/client'
+import {PrismaClient} from '@prisma/client'
 import { banners } from '../types';
-/*import { NewTvGrillEntry } from '../types'
-import notificationController from './firebaseController'*/
-const prisma = new PrismaClient()
+import { IvsClient, 
+    BatchGetChannelCommand, 
+    CreateChannelCommand, 
+    CreateChannelCommandInput, 
+    BatchGetChannelCommandInput,
+    GetChannelCommand,
+    GetChannelCommandInput, 
+    } from "@aws-sdk/client-ivs";
+import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "../utils/config";
+import firebaseController from './firebaseController';
+const client = new IvsClient({ 
+    region: AWS_REGION, 
+    credentials: {
+        accessKeyId: AWS_ACCESS_KEY_ID,
+        secretAccessKey: AWS_SECRET_ACCESS_KEY
+    },
+});
 
+const prisma = new PrismaClient()
 export default class MicelaneusController {
 
     // Listar eventos de la base de datos, con paginacion entre la fecha inicio y fecha fin
@@ -159,8 +174,33 @@ export default class MicelaneusController {
         return banners
     }
 
+    // Listar los canales de ivs
+    static async getChannels() {
+        const channels = await firebaseController.getChannels();
+        if (channels.length == 0) return channels;
+        const params: BatchGetChannelCommandInput = {
+            arns: channels
+        };
+        const data = await client.send(new BatchGetChannelCommand(params));
+        return data;
+    }
 
+    // obtener un canal de ivs
+    static async getChannelById(arn: string) {
+        console.log(arn);
+        const params: GetChannelCommandInput = {
+            arn: arn
+        };
+        const data = await client.send(new GetChannelCommand(params));
+        return data;
+    }
 
+    // Crear canal de ivs
+    static async addChannel(params: CreateChannelCommandInput) {
+        const data = await client.send(new CreateChannelCommand(params));
+        await firebaseController.registerChannel({...data, id: data?.channel?.arn});
+        return data;
+    }
 
     // Listar todas la parrillas de tv
     /*public static async getTvGrills (): Promise<any> {

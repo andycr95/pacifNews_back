@@ -4,6 +4,7 @@ const certFirebase = require('../firebase.json');
 const app = admin.initializeApp({
     credential: admin.credential.cert(certFirebase)
 });
+app.firestore().settings({ ignoreUndefinedProperties: true })
 
 export default class FirebaseController {
 
@@ -156,6 +157,33 @@ export default class FirebaseController {
             return "Notificacion enviada";
         }).catch((error) => {
             console.log("Notificacion errada: ", error);
+            return error;
+        });
+    }
+
+    // Listar canaler
+    public static async getChannels (): Promise<any | unknown> {
+        const channels = await app.firestore().collection('channels').get();
+        const channelsList: any[] = [];
+        channels.forEach(async (doc) => {
+            channelsList.push(doc.data().id);
+        });
+        return channelsList;
+    }
+
+    // registrar canal en firestore
+    public static async registerChannel (channel: any): Promise<any | unknown> {
+        await app.firestore().collection('channels').where('id', '==', channel.channel.arn).get().then((querySnapshot) => {
+            if (querySnapshot.empty) {
+                app.firestore().collection('channels').add(channel);
+                console.log("Canal registrado");
+                return "Canal registrado";
+            } else {
+                console.log("Canal ya registrado");
+                return "Canal ya registrado";
+            }
+        }).catch((error) => {
+            console.log(error);
             return error;
         });
     }
