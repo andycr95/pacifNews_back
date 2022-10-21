@@ -2,7 +2,6 @@ import express from 'express'
 import firebaseController from '../controllers/firebaseController'
 import micelaneusController from '../controllers/micelaneusController';
 import newsController from '../controllers/newsController';
-import twilioController from '../controllers/twilioController';
 
 const router = express.Router()
 
@@ -59,16 +58,5 @@ router.post('/', async (req, res) => {
     }
 });
 
-// enviar sms por twilio
-router.post('/sms', async (req, res) => {
-    try {
-        const { body, to } = req.body
-        const respToken = await twilioController.sendSMS({body, to});
-        res.status(200).json(respToken)
-    } catch (error: any) {
-        console.log(error);
-        res.status(400).json({error: error.message})
-    }
-});
 
 export default router
