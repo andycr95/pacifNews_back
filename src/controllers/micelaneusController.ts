@@ -6,7 +6,9 @@ import { IvsClient,
     CreateChannelCommandInput, 
     BatchGetChannelCommandInput,
     GetChannelCommand,
-    GetChannelCommandInput, 
+    GetChannelCommandInput,
+    GetStreamCommandInput,
+    GetStreamSessionCommand, 
     } from "@aws-sdk/client-ivs";
 import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "../utils/config";
 import firebaseController from './firebaseController';
@@ -177,11 +179,22 @@ export default class MicelaneusController {
     // Listar los canales de ivs
     static async getChannels() {
         const channels = await firebaseController.getChannels();
+        const channelsA = await firebaseController.getChannelsAll();
         if (channels.length == 0) return channels;
         const params: BatchGetChannelCommandInput = {
             arns: channels
         };
-        const data = await client.send(new BatchGetChannelCommand(params));
+        const channelsAWS = await client.send(new BatchGetChannelCommand(params));
+        const data = [];
+        for (let i = 0; i < channelsAWS.channels!.length; i++) {
+            const e = channelsAWS.channels![i];
+            for (let j = 0; j < channelsA.length; j++) {
+                const c = channelsA[j];
+                if (e.arn == c.id) {
+                    data.push(c);
+                }
+            }
+        }
         return data;
     }
 
@@ -196,9 +209,18 @@ export default class MicelaneusController {
     }
 
     // Crear canal de ivs
-    static async addChannel(params: CreateChannelCommandInput) {
+    static async addChannel(params: CreateChannelCommandInput, firebaseParams: any) {
         const data = await client.send(new CreateChannelCommand(params));
-        await firebaseController.registerChannel({...data, id: data?.channel?.arn});
+        await firebaseController.registerChannel({...data, id: data?.channel?.arn, ...firebaseParams});
+        return data;
+    }
+
+    // listar los streams de un canal de ivs
+    static async getStreamsByChannel(arn: string) {
+        const params: GetStreamCommandInput = {
+            channelArn: arn
+        };
+        const data = await client.send(new GetStreamSessionCommand(params));
         return data;
     }
 

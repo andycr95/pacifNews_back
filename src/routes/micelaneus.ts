@@ -121,16 +121,32 @@ router.get('/channels/select', async (req, res) => {
     }
 })
 
+// Listar los streams de un canal de ivs
+router.get('/channels/streams', async (req, res) => {
+    try {
+        const arn = req.query.arn?.toString() || '';
+        const streams = await micelaneusController.getStreamsByChannel(arn);
+        res.status(200).json(streams)
+    } catch (error: any) {
+        res.status(400).json({ error: error.message })
+    }
+})
+
 // crear un canal de ivs
 router.post('/channels', async (req, res) => {
     try {
         const newChannel = {
-            authorized: req.body.authorized,
-            latencyMode: req.body.latencyMode,
+            authorized: false,
+            latencyMode: 'LOW',
             name: req.body.name,
-            type: req.body.type
+            type: 'BASIC',
         }
-        const addedChannel = await micelaneusController.addChannel(newChannel)
+        const firebase = {
+            name: req.body.name,
+            description: req.body.description,
+            image: req.body.imageURL,
+        }
+        const addedChannel = await micelaneusController.addChannel(newChannel, firebase)
         res.status(200).json(addedChannel)
     } catch (error: any) {
         res.status(500).json({ error: error.message })

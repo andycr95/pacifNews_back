@@ -171,6 +171,22 @@ export default class FirebaseController {
         return channelsList;
     }
 
+    // Listar canaler
+    public static async getChannelsAll (): Promise<any | unknown> {
+        const channels = await app.firestore().collection('channels').get();
+        const channelsList: any[] = [];
+        channels.forEach(async (doc) => {
+            channelsList.push(doc.data());
+        });
+        return channelsList;
+    }
+
+    // obtener canal por id
+    public static async getChannelById (id: any): Promise<any | unknown> {
+        const channel = await app.firestore().collection('channels').where('id', '==', id).get();
+        return channel.docs[0].data();
+    }
+
     // registrar canal en firestore
     public static async registerChannel (channel: any): Promise<any | unknown> {
         await app.firestore().collection('channels').where('id', '==', channel.channel.arn).get().then((querySnapshot) => {
@@ -187,5 +203,6 @@ export default class FirebaseController {
             return error;
         });
     }
+
 }
 
