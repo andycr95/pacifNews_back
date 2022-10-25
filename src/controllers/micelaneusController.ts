@@ -200,11 +200,7 @@ export default class MicelaneusController {
 
     // obtener un canal de ivs
     static async getChannelById(arn: string) {
-        console.log(arn);
-        const params: GetChannelCommandInput = {
-            arn: arn
-        };
-        const data = await client.send(new GetChannelCommand(params));
+        const data = await firebaseController.getChannelById(arn);
         return data;
     }
 
