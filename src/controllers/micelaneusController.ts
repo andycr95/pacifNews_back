@@ -5,8 +5,6 @@ import { IvsClient,
     CreateChannelCommand, 
     CreateChannelCommandInput, 
     BatchGetChannelCommandInput,
-    GetChannelCommand,
-    GetChannelCommandInput,
     GetStreamCommandInput,
     GetStreamSessionCommand, 
     } from "@aws-sdk/client-ivs";
