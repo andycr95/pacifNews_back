@@ -31,7 +31,8 @@ export default class FirebaseController {
                 type: argument.notification.data.type,
             },
         }, false).then((resp) => {
-            app.firestore().collection('notifications').add({...argument, createdAt: Date.now()});
+            app.firestore().collection('notifications').add({...argument, createdAt: Date.now(), 
+                topic: argument.topic});
             console.log("Notificacion enviada: "+ resp.successCount);
             return "Notificacion enviada";
         }).catch((error) => {
@@ -61,7 +62,8 @@ export default class FirebaseController {
                 topic: 'message'
             },
         }, false).then((resp) => {
-            app.firestore().collection('notifications').add({...argument, createdAt: Date.now()});
+            app.firestore().collection('notifications').add({...argument, createdAt: Date.now(),
+                topic: 'message'});
             console.log("Notificacion enviada: "+ resp.successCount);
             return "Notificacion enviada";
         }).catch((error) => {
@@ -91,7 +93,7 @@ export default class FirebaseController {
                 topic: 'message'
             },
         }, false).then((resp) => {
-            app.firestore().collection('notifications').add({...argument, createdAt: Date.now()});
+            app.firestore().collection('notifications').add({...argument, createdAt: Date.now(), topic: 'message'});
             console.log("Notificacion enviada bulk: "+ resp.successCount);
             return "Notificacion enviada";
         }).catch((error) => {
@@ -164,7 +166,8 @@ export default class FirebaseController {
                 topic: 'message'
             },
         }).then((resp) => {
-            app.firestore().collection('notifications').add({...argument, createdAt: Date.now()});
+            app.firestore().collection('notifications').add({...argument, createdAt: Date.now(), 
+                topic: 'message'});
             console.log("Notificacion enviada: "+ resp);
             return "Notificacion enviada";
         }).catch((error) => {
