@@ -87,6 +87,9 @@ export default class FirebaseController {
                 title: 'Tienes un nuevo mensaje',
                 body: argument.body,
             },
+            data: {
+                topic: 'message'
+            },
         }, false).then((resp) => {
             app.firestore().collection('notifications').add({...argument, createdAt: Date.now()});
             console.log("Notificacion enviada bulk: "+ resp.successCount);
@@ -156,7 +159,10 @@ export default class FirebaseController {
             notification: {
                 title: 'Tienes un nuevo mensaje',
                 body: argument.title,
-            }
+            },
+            data: {
+                topic: 'message'
+            },
         }).then((resp) => {
             app.firestore().collection('notifications').add({...argument, createdAt: Date.now()});
             console.log("Notificacion enviada: "+ resp);
