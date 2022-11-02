@@ -59,4 +59,17 @@ router.post('/', async (req, res) => {
 });
 
 
+// Obtener notificaciones de un usuario
+router.get('/:id', async (req, res) => {
+    try {
+        const { id } = req.params;
+        const respToken = await firebaseController.getNotificationsByUser(id);
+        res.status(200).json(respToken)
+    } catch (error: any) {
+        console.log(error);
+        res.status(400).json({error: error.message})
+    }
+});
+
+
 export default router

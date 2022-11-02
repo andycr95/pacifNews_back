@@ -73,8 +73,8 @@ export default class MicelaneusController {
     static async getVideos(page: number, limit: number) {
         const total = await prisma.videos_institucionales.count();
         const videosI = await prisma.videos_institucionales.findMany({
-            skip: page < 1 ? 0 : (page - 1) * limit,
-            take: limit,
+            skip: page < 1 ? 0 : (page - 1) * 20,
+            take: 20,
             orderBy: {
                 id: 'desc'
             }

@@ -204,5 +204,15 @@ export default class FirebaseController {
         });
     }
 
+    // obtener notificaciones de un usuario
+    public static async getNotificationsByUser (idusuario: any): Promise<any | unknown> {
+        const notifications = await app.firestore().collection('notifications').where('idusuario', '==', idusuario).get();
+        const notificationsList: any[] = [];
+        notifications.forEach(async (doc) => {
+            notificationsList.push(doc.data());
+        });
+        return notificationsList;
+    }
+
 }
 
