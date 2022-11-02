@@ -149,10 +149,10 @@ export default class FirebaseController {
             token: user.docs[0].data().token,
             notification: {
                 title: 'Tienes un nuevo mensaje',
-                body: argument.title
+                body: argument.title,
             }
         }).then((resp) => {
-            app.firestore().collection('notifications').add(argument);
+            app.firestore().collection('notifications').add({...argument, createdAt: Date.now()});
             console.log("Notificacion enviada: "+ resp);
             return "Notificacion enviada";
         }).catch((error) => {
