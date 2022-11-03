@@ -33,6 +33,10 @@ jobs:
         envkey_ACCESS_TOKEN_SECRET: unipacifico
         GOOGLE_APPLICATION_CREDENTIALS: ./firebase.json
         apiKey: ${{ secrets.APIKEY }}
+        oracleUser: ${{ secrets.ORACLE_USER }}
+        oraclePassword: ${{ secrets.ORACLE_PASSWORD }}
+        oracleHost: ${{ secrets.ORACLE_HOST }}
+        OracleDb: ${{ secrets.ORACLE_DB }}
         projectId: ${{ secrets.PROJECTID }}
         appId: ${{ secrets.APPID }}
         measurementId: ${{ secrets.MEASUREMENTID }}
@@ -57,4 +61,8 @@ jobs:
         AWS_REGION: ${{ secrets.AWS_REGION }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         POSTGRESQL_DATABASE_URL: ${{ secrets.POSTGRESQL_DATABASE_URL }}
+        ORACLE_USER: ${{ secrets.ORACLE_USER }}
+        ORACLE_PASSWORD: ${{ secrets.ORACLE_PASSWORD }}
+        ORACLE_HOST: ${{ secrets.ORACLE_HOST }}
+        ORACLE_DB: ${{ secrets.ORACLE_DB }}
 
