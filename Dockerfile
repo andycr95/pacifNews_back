@@ -2,14 +2,19 @@ FROM node:lts-alpine
 WORKDIR /usr/app
 COPY . .
 RUN ls -a
+RUN apt-get update \
+ && apt-get install -y unzip wget libaio1 \
+ && mkdir -p opt/oracle \
+# ADD ORACLE INSTANT CLIENT from local system
+ && unzip instantclient-basic-linux.x64-19.3.0.0.0dbru.zip -d /opt/oracle \
+ && mv /opt/oracle/instantclient_19_3 /opt/oracle/instantclient
+
+# Setup the path to find the instantclient with node-oracledb library
+ENV LD_LIBRARY_PATH="/opt/oracle/instantclient"
+
 RUN npm install -g npm@8.19.2
 RUN npm install
 RUN npm run build
-RUN yum update -y && \
-  yum install -y oracle-release-el7 && \
-  yum install -y oracle-nodejs-release-el7 && \
-  yum install -y --disablerepo=ol7_developer_EPEL nodejs && \
-  yum install -y oracle-instantclient19.3-basic.x86_64 &&
 
 ## this is stage two , where the app actually runs
 FROM node:lts-alpine    
