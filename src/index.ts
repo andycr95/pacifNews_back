@@ -9,7 +9,6 @@ import helmet from 'helmet'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import morgan from 'morgan'
-import db from "./utils/dbConnection";
 
 const app = express()
 app.use(express.json())
@@ -19,7 +18,6 @@ app.use(bodyParser.json())
 app.use(express.static(__dirname+'/uploads'))
 app.use(morgan('dev'))
 app.use(cors())
-db();
 const PORT = process.env.PORT || 5000
 
 // CORS configuration

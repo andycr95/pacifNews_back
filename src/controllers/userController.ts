@@ -1,17 +1,38 @@
 import { LoginUserEntry } from '../types'
 import jwt from '../utils/jwt'
 import Axios from "axios";
+const oracledb = require('oracledb');
+oracledb.initOracleClient({libDir: process.env.LD_LIBRARY_PATH});
+
 
 export default class UserController {
-  //Login a la api de la universidad 
+
   public static async validate (user: LoginUserEntry): Promise<any> {
     const { email, password } = user;
     const resp = await Axios.post(`http://api.unipacifico.edu.co/apiunipacifico/public/api/auth/userLogin?usuario=${email}&pass=${password}`, { responseType: 'json' });
     if (resp.data.msj != undefined || resp.data.msj != null) return { error: resp.data, hasError: true };
     const token = await jwt.signAccessToken({ id: resp.data.id });
     return { user: resp.data, token }
-}
+  }
 
+  public static async getUser (id: String): Promise<any> {
+    let connection;
+    connection = await oracledb.getConnection({ user: "reporteador", password: "reporteador", connectionString: "181.224.160.30/UNIPA1N" });
+    const sql = `select * from ACADEMICO.V_ESTUDIANTES ve JOIN ACADEMICO.PROGRAMA p ON p.PROG_ID = ve.IDPROGRAMA WHERE ve.IDPEGE = ${id}`;
+    let result = await connection.execute(sql, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+    if (result.rows.length == 0) {
+      const sql2 = `select * from ACADEMICO.V_FUNCIONARIOS WHERE IDPEGE = ${id}`;
+      let result = await connection.execute(sql2, [], { outFormat: oracledb.OUT_FORMAT_OBJECT });
+      const rs = result.rows;
+      rs[0].USUARIOTIPO = "FUNCIONARIO";
+      return rs[0];
+    }
+    
+    const rs = result.rows;
+    rs[0].USUARIOTIPO = "ESTUDIANTE";
+    return rs[0];
+    
+  }
   // Listar todos los usuarios
   /*public static async getUser (): Promise<any> {
     const users = await prisma.user.findMany()

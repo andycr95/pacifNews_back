@@ -1,6 +1,6 @@
-import { PrismaClient } from '@prisma/client'
+import Prisma from '@prisma/client';
 import { NoticiasActualidads } from '../types'
-const prisma = new PrismaClient()
+const prisma = new Prisma.PrismaClient()
 
 export default class NewController {
     

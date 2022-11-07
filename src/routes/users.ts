@@ -97,4 +97,16 @@ router.post('/validate', async (req, res) => {
   }
 })
 
+// Metodo para obtener un usuario
+router.get('/:id', async (req, res) => {
+  try {
+    const id = req.params.id;
+    const user = await userController.getUser(id)
+    res.status(200).json(user)
+  } catch (error: any) {
+    console.log(error);
+    res.status(400).json({error: error.message})
+  }
+})
+
 export default router
