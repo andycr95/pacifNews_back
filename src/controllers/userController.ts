@@ -2,7 +2,6 @@ import { LoginUserEntry } from '../types'
 import jwt from '../utils/jwt'
 import Axios from "axios";
 const oracledb = require('oracledb');
-oracledb.initOracleClient({libDir: process.env.LD_LIBRARY_PATH});
 
 
 export default class UserController {
