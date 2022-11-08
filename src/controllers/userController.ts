@@ -8,7 +8,8 @@ export default class UserController {
 
   public static async validate (user: LoginUserEntry): Promise<any> {
     const { email, password } = user;
-    const resp = await Axios.post(`http://api.unipacifico.edu.co/apiunipacifico/public/api/auth/userLogin?usuario=${email}&pass=${password}`, { responseType: 'json' });
+    const resp = await Axios.post('http://api.unipacifico.edu.co/apiunipacifico/public/api/auth/userLogin', { responseType: 'json' }, {params: { usuario: email, pass: password }});
+    console.log(resp.data.args);
     if (resp.data.msj != undefined || resp.data.msj != null) return { error: resp.data, hasError: true };
     const token = await jwt.signAccessToken({ id: resp.data.id });
     return { user: resp.data, token }
