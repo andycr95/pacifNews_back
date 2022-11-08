@@ -112,13 +112,9 @@ router.get('/channels', async (_req, res) => {
 
 // obtener canal por id
 router.get('/channels/select', async (req, res) => {
-    try {
-        const arn = req.query.arn?.toString() || '';
-        const canal = await micelaneusController.getChannelById(arn);
-        res.status(200).json(canal)
-    } catch (error: any) {
-        res.status(400).json({ error: error.message })
-    }
+    const arn = req.query.arn?.toString() || '';
+    const canal = await micelaneusController.getChannelById(arn);
+    res.status(200).json(canal);
 })
 
 // Listar los streams de un canal de ivs
@@ -126,9 +122,9 @@ router.get('/channels/streams', async (req, res) => {
     try {
         const arn = req.query.arn?.toString() || '';
         const streams = await micelaneusController.getStreamsByChannel(arn);
-        res.status(200).json(streams)
+        res.status(200).json({streams, isAction: true})
     } catch (error: any) {
-        res.status(400).json({ error: error.message })
+        res.status(400).json({ error: error.message, isActive: false })
     }
 })
 

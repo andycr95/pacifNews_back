@@ -6,7 +6,7 @@ import { IvsClient,
     CreateChannelCommandInput, 
     BatchGetChannelCommandInput,
     GetStreamCommandInput,
-    GetStreamSessionCommand, 
+    GetStreamCommand, 
     } from "@aws-sdk/client-ivs";
 import { AWS_REGION, AWS_ACCESS_KEY_ID, AWS_SECRET_ACCESS_KEY } from "../utils/config";
 import firebaseController from './firebaseController';
@@ -198,8 +198,20 @@ export default class MicelaneusController {
 
     // obtener un canal de ivs
     static async getChannelById(arn: string) {
-        const data = await firebaseController.getChannelById(arn);
-        return data;
+        const fire = await firebaseController.getChannelById(arn);
+        try {
+            const data = await client.send(new GetStreamCommand({channelArn: arn}))
+            return {
+                ...data,
+                ...fire,
+                isActive: true
+            }
+        } catch (err) {
+            return {
+                ...fire,
+                isActive: false
+            }   
+        }
     }
 
     // Crear canal de ivs
@@ -214,7 +226,7 @@ export default class MicelaneusController {
         const params: GetStreamCommandInput = {
             channelArn: arn
         };
-        const data = await client.send(new GetStreamSessionCommand(params));
+        const data = await client.send(new GetStreamCommand(params));
         return data;
     }
 
