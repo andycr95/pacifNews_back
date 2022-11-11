@@ -23,9 +23,20 @@ export default class MicelaneusController {
 
     // Listar eventos de la base de datos, con paginacion entre la fecha inicio y fecha fin
     static async getEvents(page: number, limit: number) {
+        const Newdate = new Date();
+        let day = ("0" + Newdate.getDate()).slice(-2);
+        let month = ("0" + (Newdate.getMonth() + 1)).slice(-2);
+        const date = `${Newdate.getFullYear()}-${month}-${day}`
         const total = await prisma.hechos_destacados.count({
             where: {
-                estado: '1'
+                fecha_inicio: {
+                    lte: date
+                },
+                AND: {
+                    fecha_final: {
+                        gte: date
+                    }
+                }
             }
         });
         const events = await prisma.hechos_destacados.findMany({
@@ -35,7 +46,14 @@ export default class MicelaneusController {
                 id: 'desc'
             },
             where: {
-                estado: '1'
+                fecha_inicio: {
+                    lte: date
+                },
+                AND: {
+                    fecha_final: {
+                        gte: date
+                    }
+                }
             }
         })
         const data = {
@@ -57,13 +75,24 @@ export default class MicelaneusController {
 
     // Listar eventos destacados, maximo 20
     static async getEventsDestacados() {
+        const Newdate = new Date();
+        let day = ("0" + Newdate.getDate()).slice(-2);
+        let month = ("0" + (Newdate.getMonth() + 1)).slice(-2);
+        const date = `${Newdate.getFullYear()}-${month}-${day}`
         const events = await prisma.hechos_destacados.findMany({
             take: 4,
             orderBy: {
                 id: 'desc'
             },
             where: {
-                estado: '1'
+                fecha_inicio: {
+                    lte: date
+                },
+                AND: {
+                    fecha_final: {
+                        gte: date
+                    }
+                }
             }
         })
         return events
@@ -71,12 +100,19 @@ export default class MicelaneusController {
 
     // Lista videos institucionales
     static async getVideos(page: number, limit: number) {
-        const total = await prisma.videos_institucionales.count();
+        const total = await prisma.videos_institucionales.count({
+            where: {
+                estado: '1'
+            }
+        });
         const videosI = await prisma.videos_institucionales.findMany({
             skip: page < 1 ? 0 : (page - 1) * 20,
-            take: 20,
+            take: limit,
             orderBy: {
                 id: 'desc'
+            },
+            where: {
+                estado: '1'
             }
         })
         const data = {
@@ -88,6 +124,7 @@ export default class MicelaneusController {
         }
         return data;
     }
+    
 
     // Obtener video intitucional por id
     static async getVideoIById(id: number) {
