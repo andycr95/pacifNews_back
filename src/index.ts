@@ -11,6 +11,7 @@ import bodyParser from 'body-parser'
 import morgan from 'morgan'
 
 const app = express()
+
 app.use(express.json())
 app.use(helmet())
 app.use(bodyParser.urlencoded({ extended: true }))
@@ -21,7 +22,7 @@ app.use(cors())
 const PORT = process.env.PORT || 5000
 
 // CORS configuration
-app.use(function (_req, res, next) {
+app.use(function (_req: any, res: { header: (arg0: string, arg1: string) => void }, next: () => void) {
   res.header("Access-Control-Allow-Origin", "*");
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   next();

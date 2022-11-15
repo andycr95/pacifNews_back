@@ -267,6 +267,23 @@ export default class MicelaneusController {
         return data;
     }
 
+    // listar los calendarios de cada año academico
+    static async getCalendars() {
+        const calendars = await prisma.calendarioacade.findMany()
+        return calendars;
+    }
+
+    // Obtener calendarios por id
+    static async getCalendarsById(id: number) {
+        const calendar = await prisma.detallecalendarioacade.findMany({
+            where: {
+                idcalendarioacade : id
+            }
+        })
+        return calendar;
+    }
+        
+
     // Listar todas la parrillas de tv
     /*public static async getTvGrills (): Promise<any> {
         const tvGrids = await prisma.grill.findMany({orderBy: { id: 'desc' }})

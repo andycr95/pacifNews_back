@@ -149,6 +149,27 @@ router.post('/channels', async (req, res) => {
     }
 })
 
+// Obtener lista de calendarios del año actual
+router.get('/calendarios', async (_req, res) => {
+    try {
+        const calendarios = await micelaneusController.getCalendars()
+        res.status(200).json(calendarios)
+    } catch (error: any) {
+        res.status(500).json({ error: error.message })
+    }
+})
+
+// Obtener calendario por id
+router.get('/calendarios/:id', async (req, res) => {
+    try {
+        const id = Number(req.params.id)
+        const calendario = await micelaneusController.getCalendarsById(id)
+        res.status(200).json(calendario)
+    } catch (error: any) {
+        res.status(400).json({ error: error.message })
+    }
+})
+
 /*
 // Crear un live stream
 router.post('/live', async (_req, res) => {

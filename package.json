@@ -67,6 +67,7 @@
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.25.3",
     "sequelize-oracle": "^3.3.2-0.0",
+    "socket.io": "^4.5.3",
     "twilio": "^3.82.2",
     "typeorm": "^0.3.10"
   },
