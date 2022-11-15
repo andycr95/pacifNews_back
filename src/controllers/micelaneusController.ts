@@ -269,7 +269,19 @@ export default class MicelaneusController {
 
     // listar los calendarios de cada año academico
     static async getCalendars() {
-        const calendars = await prisma.calendarioacade.findMany()
+        const Newdate = new Date();
+        const calendars = await prisma.calendarioacade.findMany({
+            where: {
+                fechaini: {
+                    lte: Newdate
+                },
+                AND: {
+                    fechafin: {
+                        gte: Newdate
+                    }
+                }
+            }
+        })
         return calendars;
     }
 
