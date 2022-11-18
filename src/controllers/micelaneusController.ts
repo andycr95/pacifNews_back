@@ -280,6 +280,9 @@ export default class MicelaneusController {
     // Obtener calendarios por id
     static async getCalendarsById(id: number) {
         const calendar = await prisma.detallecalendarioacade.findMany({
+            orderBy: {
+                iddetalle: 'asc'
+            },
             where: {
                 idcalendarioacade : id
             }
