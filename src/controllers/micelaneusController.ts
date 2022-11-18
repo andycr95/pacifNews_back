@@ -105,16 +105,8 @@ export default class MicelaneusController {
                 estado: '1'
             }
         });
-        const videosI = await prisma.videos_institucionales.findMany({
-            skip: page < 1 ? 0 : (page - 1) * 20,
-            take: limit,
-            orderBy: {
-                id: 'desc'
-            },
-            where: {
-                estado: '1'
-            }
-        })
+        const videosI: any = await prisma.$queryRaw`SELECT titulo, imagen, tipo, enlace, estado, to_char(created_at,'YYYY-MM-DD') as created_at FROM videos_institucionales WHERE estado = '1' LIMIT ${limit} OFFSET ${page < 1 ? 0 : (page - 1) * limit}`;
+        
         const data = {
             page: page,
             totalPages: Math.ceil(total / limit),
