@@ -8,7 +8,6 @@ import notificationRouter from './routes/notification'
 import helmet from 'helmet'
 import cors from 'cors'
 import bodyParser from 'body-parser'
-import morgan from 'morgan'
 
 const app = express()
 
@@ -17,7 +16,6 @@ app.use(helmet())
 app.use(bodyParser.urlencoded({ extended: true }))
 app.use(bodyParser.json())
 app.use(express.static(__dirname+'/uploads'))
-app.use(morgan('dev'))
 app.use(cors())
 const PORT = process.env.PORT || 5000
 
