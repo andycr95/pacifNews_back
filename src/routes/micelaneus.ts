@@ -134,7 +134,7 @@ router.post('/channels', async (req, res) => {
         const newChannel = {
             authorized: false,
             latencyMode: 'LOW',
-            name: req.body.name,
+            name: req.body.title,
             type: 'BASIC',
         }
         const firebase = {
